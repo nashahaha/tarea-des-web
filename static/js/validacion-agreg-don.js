@@ -12,8 +12,7 @@ const validarEmail=(mail) =>{
 
 //VALIDADOR NUMERO DE TELEFONO
 //campo opcional
-const validarTelefono=(telefono) =>
-{
+const validarTelefono=(telefono) =>{
     var validPhone = /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/;
     return validPhone.test(telefono) || telefono===""; //tiene el formato o es vacío
 }
