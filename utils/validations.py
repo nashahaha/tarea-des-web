@@ -44,5 +44,5 @@ def validate_file(file):
     return True
 
 def validate_select(select):
-    if not select: True
-    else: False
+    if not select: False
+    else: True
