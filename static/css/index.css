@@ -1,0 +1,32 @@
+.main-container{
+    display: flex;
+    justify-content: space-around;
+    margin: 5%;
+    align-items: center;
+}
+
+.btn-icons {
+    width: 100px;
+    height: 100px;
+}
+
+.option-box {
+    font-family: Helvetica, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    text-decoration: none; /* Asegura que no haya subrayado */
+    width: 30%;
+    height: 200px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: white;
+    border: .2em solid var(--black-color);
+    border-radius: .25em;
+    box-shadow: .2em .2em 0px 0px var(--black-color);
+    margin: 0em 1em 2em 1em;
+    padding: 0.5em 1em 1em 1em;
+}
