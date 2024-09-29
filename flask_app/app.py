@@ -1,4 +1,8 @@
 from flask import Flask, request, render_template, redirect, url_for, session
+from utils.validations import validate_user, validate_device
+from database import db
+import datetime
+
 
 app = Flask(__name__)
 
@@ -20,22 +24,26 @@ def verDispositivos():
 
 @app.route("/confirmar", methods=("GET", "POST"))
 def confirmarForm():
-    if request.method == "POST":
-        name = request.form["username"]
-        email = request.form["email"]
-        phone = request.form["phone-number"]
-        region = request.form["select-region"]
-        comuna = request.form["select-comuna"]
+    name   = request.form.get["username"]
+    email  = request.form.get["email"]
+    phone  = request.form.get["phone-number"]
+    region = request.form.get["select-region"]
+    comuna = request.form.get["select-comuna"]
 
-        device = request.form["device-name"]
-        descripcion = request.form["device-descr"]
-        tipo = request.form["device-type"]
-        anhos = request.form["years-of-use"]
-        estado = request.form["working-status"]
-        fotos = request.form["device-pics"]
+    device  = request.form.get["device-name"]
+    descrip = request.form.get["device-descr"]
+    tipo    = request.form.get["device-type"]
+    anhos   = request.form.get["years-of-use"]
+    estado  = request.form.get["working-status"]
+    fotos   = request.files.get["device-pics"]
 
+    if validate_user(name, email, phone, region, comuna):
+        ## aquí debería buscar la comuna entre la base de datos y retornar el id
+        comuna_id = db.get_id_comuna_by_nombre()
+        fecha_creacion = datetime.datetime.now()
+        db.create_user(name, email, phone, comuna_id, fecha_creacion)
         
-    return
+    
 
 if __name__ == "__main__":
     app.run(debug=True)

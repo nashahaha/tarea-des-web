@@ -30,3 +30,9 @@ def create_user(nombre, email, celular, comuna_id, fecha_creacion):
     cursor.execute(QUERY_DICT["create_user"], (nombre, email, celular, comuna_id, fecha_creacion))
     conn.commit()
 
+def get_id_comuna_by_nombre(nombre_comuna):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_comuna_by_nombre"], (nombre_comuna,))
+	comuna = cursor.fetchone()
+	return comuna
