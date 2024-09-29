@@ -46,3 +46,6 @@ def validate_file(file):
 def validate_select(select):
     if not select: False
     else: True
+
+def validate_form():
+    return 
