@@ -3,8 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <title>Ver dispositivos</title>
-    <link rel="stylesheet" type="text/css" href="../css/ver-dispositivos.css" />
-    <link rel="stylesheet" href="../css/nav-bar.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/ver-dispositivos.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/nav-bar.css') }}"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap"
       rel="stylesheet"
@@ -14,9 +21,13 @@
   <body>
     <!--NAVEGATION BAR-->
     <div class="navbar">
-      <img id="logo-id" src="../Images/page_logo.png" alt="Logo" />
+      <img
+        id="logo-id"
+        src="{{ url_for('static', filename='Images/page_logo.png') }}"
+        alt="Logo"
+      />
       <h1>ReciclaTech</h1>
-      <a class="navbar-page" href="../html/index.html">Home</a>
+      <a class="navbar-page" href="{{ url_for('index') }}">Home</a>
       <a class="navbar-page" href="#about">About</a>
       <a class="navbar-page" href="#contact">Contact</a>
     </div>
@@ -120,6 +131,6 @@
       </tbody>
     </table>
 
-    <script src="../js/ver-dispositivos.js"></script>
+    <script src="{{ url_for('static', filename='js/ver-dispositivos.js') }}"></script>
   </body>
 </html>

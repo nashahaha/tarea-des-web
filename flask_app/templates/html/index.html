@@ -21,7 +21,7 @@
     <div class="navbar">
       <img
         id="logo-id"
-        src="{{ url_for('static', filename='Images/page_logo.png') }}/"
+        src="{{ url_for('static', filename='Images/page_logo.png') }}"
         alt="Logo"
       />
       <h1>ReciclaTech</h1>
@@ -32,7 +32,7 @@
 
     <!--MAIN CONTAINER-->
     <div class="main-container">
-      <a class="option-box" href="../html/agregar-donacion.html">
+      <a class="option-box" href="{{ url_for('agregarDonacion') }}">
         <img
           class="btn-icons"
           src="https://cdn-icons-png.flaticon.com/512/2904/2904845.png"
@@ -41,7 +41,7 @@
         Agregar donación
       </a>
 
-      <a class="option-box" href="../html/ver-dispositivos.html">
+      <a class="option-box" href="{{ url_for('verDispositivos') }}">
         <img
           class="btn-icons"
           src="https://static.vecteezy.com/system/resources/previews/005/242/944/original/phone-icon-telephone-icon-symbol-in-hand-for-app-and-messenger-free-vector.jpg"

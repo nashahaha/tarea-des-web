@@ -10,9 +10,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def index():
     return render_template("html/index.html")
 
-@app.route("/agregar-donacion")
+@app.route("/agregar-donacion") ## NOMBRE DEL URL
 def agregarDonacion():
     return render_template("html/agregar-donacion.html")
+
+@app.route("/ver-dispositivos")
+def verDispositivos():
+    return render_template("html/ver-dispositivos.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

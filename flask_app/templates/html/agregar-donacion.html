@@ -3,11 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Agregar dispositivo</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/validacion-agreg-don.css') }}"
-    />
+
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/nav-bar.css') }}"
@@ -25,9 +21,13 @@
   <body>
     <!--NAVEGATION BAR-->
     <div class="navbar" id="navbar">
-      <img id="logo-id" src="../Images/page_logo.png" alt="Logo" />
+      <img
+        id="logo-id"
+        src="{{ url_for('static', filename='Images/page_logo.png') }}"
+        alt="Logo"
+      />
       <h1>ReciclaTech</h1>
-      <a class="navbar-page" href="../html/index.html">Home</a>
+      <a class="navbar-page" href="{{ url_for('index') }}">Home</a>
       <a class="navbar-page" href="#about">About</a>
       <a class="navbar-page" href="#contact">Contact</a>
     </div>
@@ -49,7 +49,7 @@
       <!--RETURN HOME MESSAGE-->
       <div id="return-to-home" class="return-to-home" hidden>
         <p>Hemos recibido la información de su donación. Muchas gracias.</p>
-        <a href="../html/index.html">Volver al inicio</a>
+        <a href="{{ url_for('index') }}">Volver al inicio</a>
       </div>
 
       <!--FORM-->
@@ -214,8 +214,8 @@
         </div>
       </form>
     </div>
-    <script src="../js/validacion-agreg-don.js"></script>
-    <script src="../js/select_region.js"></script>
-    <script src="../js/agregar-dispositivo.js"></script>
+    <script src="{{ url_for('static', filename='js/validacion-agreg-don.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/select_region.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/agregar-dispositivo.js') }}"></script>
   </body>
 </html>
