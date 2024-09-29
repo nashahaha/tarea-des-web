@@ -3,8 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Tarea 1</title>
-    <link rel="stylesheet" href="../css/index.css" />
-    <link rel="stylesheet" href="../css/nav-bar.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/index.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/nav-bar.css') }}"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap"
       rel="stylesheet"
@@ -13,7 +19,11 @@
   <body>
     <!--NAVEGATION BAR-->
     <div class="navbar">
-      <img id="logo-id" src="../Images/page_logo.png" alt="Logo" />
+      <img
+        id="logo-id"
+        src="{{ url_for('static', filename='Images/page_logo.png') }}/"
+        alt="Logo"
+      />
       <h1>ReciclaTech</h1>
       <a class="navbar-page" href="#home">Home</a>
       <a class="navbar-page" href="#about">About</a>
