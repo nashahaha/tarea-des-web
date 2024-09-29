@@ -47,5 +47,12 @@ def validate_select(select):
     if not select: False
     else: True
 
-def validate_form():
-    return 
+def validate_user(name, email, phone, region, comuna):
+    return validate_name(name) and validate_email(email) and validate_phone(phone) and validate_select(region) and validate_select(comuna)
+
+def validate_device(device, description, type, years, status, pics):
+    for pic in pics:
+        if not validate_file(pic):
+            return False
+    return validate_device(device) and validate_description(description) and validate_select(type) and validate_years(years) and validate_select(status)
+

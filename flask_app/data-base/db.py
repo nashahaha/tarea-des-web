@@ -24,10 +24,9 @@ def get_conn():
 	)
 	return conn
 
-def get_usuario(conn, username):
-    sql = "SELECT id"
+def create_user(nombre, email, celular, comuna_id, fecha_creacion):
+    conn = get_conn()
     cursor = conn.cursor()
-    cursor.execute(sql, (username,))
+    cursor.execute(QUERY_DICT["create_user"], (nombre, email, celular, comuna_id, fecha_creacion))
     conn.commit()
-    usuario = cursor.fetchone()
-    return usuario
+
