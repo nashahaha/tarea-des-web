@@ -53,7 +53,13 @@
       </div>
 
       <!--FORM-->
-      <form class="formulario" id="form" name="form">
+      <form
+        class="formulario"
+        id="form"
+        name="form"
+        action="{{url_for('confirmarForm')}}"
+        method="post"
+      >
         <!--INFO DE CONTACTO-->
         <h2 class="bajada">Ingrese sus datos para realizar su donación</h2>
         <div id="contact-section">
