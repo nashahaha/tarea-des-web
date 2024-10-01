@@ -9,7 +9,7 @@ DB_HOST = "localhost"
 DB_PORT = 3306
 DB_CHARSET = "utf8"
 
-with open('querys.json', 'r', encoding="UTF-8") as querys:
+with open('database/querys.json', 'r', encoding="UTF-8") as querys:
 	QUERY_DICT = json.load(querys)
 
 # -- conn ---

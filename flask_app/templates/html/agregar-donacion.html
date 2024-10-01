@@ -33,6 +33,9 @@
     </div>
     <!--MAIN CONTAINER-->
     <div class="container">
+      {% if error %}
+      <div class="error-message">{{ error }}</div>
+      {% endif %}
       <!--CONFIRMATION MESSAGE-->
       <div id="confirmation-box" class="confirmation-box" hidden>
         <h2 id="confirmation-msg">
@@ -57,8 +60,9 @@
         class="formulario"
         id="form"
         name="form"
-        action="{{url_for('confirmarForm')}}"
+        action="{{ url_for('confirmarForm') }}"
         method="post"
+        enctype="multipart/form-data"
       >
         <!--INFO DE CONTACTO-->
         <h2 class="bajada">Ingrese sus datos para realizar su donación</h2>
@@ -216,7 +220,7 @@
         </div>
         <!--BOTON DE ENVIO-->
         <div class="botones">
-          <button type="button" id="envio">Publicar esta donación</button>
+          <button type="submit" id="envio">Publicar esta donación</button>
         </div>
       </form>
     </div>
