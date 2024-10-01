@@ -1,7 +1,7 @@
 {
-    "create_user": "INSERT INTO contacto (nombre, email, celular, comuna_id, fecha_creacion) VALUES (?, ?, ?, ?, ?)",
+    "create_user": "INSERT INTO contacto (nombre, email, celular, comuna_id, fecha_creacion) VALUES (%s, %s, %s, %s, %s)",
     "get_users": "SELECT id, nombre, email, celular, comuna_id, fecha_creacion FROM contacto ORDER BY id DESC",
-    "get_comuna_by_nombre": "SELECT id FROM comuna WHERE nombre=?",
+    "get_comuna_by_nombre": "SELECT id FROM comuna WHERE nombre=%s",
     "create_device": "INSERT INTO dispositivo (contacto_id, nombre, descripcion, tipo, anos_uso, estado) VALUES (?,?,?,?,?,?)",
     "get_device_by_id": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo WHERE contacto_id=?",
     "get_devices": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo ORDER BY id DESC LIMIT 0, 5",

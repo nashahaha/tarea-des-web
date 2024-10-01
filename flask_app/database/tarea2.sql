@@ -12,7 +12,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema tarea2
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `tarea2` DEFAULT CHARACTER SET utf8 ;
-GRANT ALL ON tarea2.* TO cc5002@localhost;
+GRANT ALL ON tarea2.* TO 'cc5002'@'localhost';
 USE `tarea2` ;
 
 -- -----------------------------------------------------

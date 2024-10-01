@@ -4,7 +4,7 @@ import os
 
 DB_NAME = "tarea2"
 DB_USERNAME = "cc5002"
-DB_PASSWORD = "NeoG352912"
+DB_PASSWORD = "programacionweb"
 DB_HOST = "localhost"
 DB_PORT = 3306
 DB_CHARSET = "utf8"
@@ -37,6 +37,3 @@ def get_id_comuna_by_nombre(nombre_comuna):
 	cursor.execute(QUERY_DICT["get_comuna_by_nombre"], (nombre_comuna,))
 	comuna = cursor.fetchone()
 	return comuna
-
-get_id_comuna_by_nombre("Independecia")
-create_user("Juan Carlos Bodoque", "juan.carlos@31minutos.cl", "012345678", 130216, "2024-09-31 23:59:07")
