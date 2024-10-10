@@ -1,15 +1,15 @@
 {
     "create_user": "INSERT INTO contacto (nombre, email, celular, comuna_id, fecha_creacion) VALUES (%s, %s, %s, %s, %s)",
     "get_users": "SELECT id, nombre, email, celular, comuna_id, fecha_creacion FROM contacto ORDER BY id DESC",
-    "get_user_by_id": "SELECT nombre, email, celular, comuna_id, fecha_creacion FROM contacto WHERE id=%s",
+    "get_user_by_id": "SELECT * FROM contacto WHERE id=%s",
 
     "get_comuna_by_nombre": "SELECT id FROM comuna WHERE nombre=%s",
-    "get_region_comuna_by_id_comuna": "SELECT region.nombre AS region_nombre, comuna.nombre AS comuna_nombre FROM comuna JOIN region ON comuna.id_region = region.id WHERE comuna.id = %s;",
+    "get_region_comuna_by_id_comuna": "SELECT comuna.nombre AS comuna_nombre, region.nombre AS region_nombre FROM tarea2.comuna JOIN tarea2.region ON comuna.region_id = region.id WHERE comuna.id = %s",
 
     "create_device": "INSERT INTO dispositivo (contacto_id, nombre, descripcion, tipo, anos_uso, estado) VALUES (?,?,?,?,?,?)",
     "get_device_by_id": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo WHERE contacto_id=?",
     
-    "get_devices": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo ORDER BY id DESC LIMIT %s, %s",
+    "get_devices": "SELECT * FROM dispositivo ORDER BY id DESC LIMIT %s, 5",
     "get_next_devices": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo ORDER BY id DESC LIMIT 5, 5",
 
     "get_devices_comuna": "SELECT id, contacto_id, COM.nombre, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo, contacto CO, comuna COM WHERE contacto_id=CO.id AND CO.comuna_id=COM.id ORDER BY id DESC LIMIT 5, 5",

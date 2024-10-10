@@ -16,18 +16,19 @@
     </tr>
   </thead>
   <tbody>
-    {% if data %} {%for device in data%}
-    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
-      <td>{{device.telefono}}</td>
-      <td>{{device.tipo}}</td>
-      <td>{{device.estado}}</td>
-      <td>{{device.comuna}}</td>
+    {% if data %} {% for device in data %}
+    <tr class="clickable-row">
+      <td>{{ device.tipo }}</td>
+      <td>{{ device.dispositivo }}</td>
+      <td>{{ device.estado }}</td>
+      <td>{{ device.comuna }}</td>
       <td>
         <!--le quité el id a la imagen, no sé si lo necesito XD-->
-        <img class="imgs" src="{{device.img_path}}" alt="placeholder image" />
+        <img class="imgs" src="" alt="placeholder image" />
       </td>
     </tr>
     {% endfor %} {% endif %}
+
     <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
       <td>Tablet</td>
       <td>ABC123</td>

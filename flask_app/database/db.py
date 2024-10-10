@@ -38,10 +38,10 @@ def get_id_comuna_by_nombre(nombre_comuna): #no se usa
 	comuna = cursor.fetchone()
 	return comuna
 
-def get_dispositivos(start, finish):
+def get_dispositivos(start):
 	conn = get_conn()
 	cursor = conn.cursor()
-	cursor.execute(QUERY_DICT["get_devices"], (start, finish))
+	cursor.execute(QUERY_DICT["get_devices"], (start,))
 	dispositivos = cursor.fetchall()
 	return dispositivos #debería devolver una lista de listas con toda la info
 
@@ -49,12 +49,12 @@ def get_user_by_id(id):
 	conn = get_conn()
 	cursor = conn.cursor()
 	cursor.execute(QUERY_DICT["get_user_by_id"], (id,))
-	user_info = cursor.fetchall()
+	user_info = cursor.fetchone()
 	return user_info
 
 def get_region_comuna_by_id_comuna(comuna_id):
 	conn = get_conn()
-	cursor = conn.cursor
+	cursor = conn.cursor()
 	cursor.execute(QUERY_DICT["get_region_comuna_by_id_comuna"], (comuna_id,))
-	region_comuna = cursor.fetchall()
+	region_comuna = cursor.fetchone()
 	return region_comuna

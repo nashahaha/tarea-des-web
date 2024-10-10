@@ -5,10 +5,11 @@ let cntLlamado = 1; // Contador de llamados
   const agregarDispositivo = () => {
     cntLlamado++ //Aumentamos el contador de llamados
 
-    let dispositivoForm = document.getElementById("device-section"); //Nodo con la información del dispositivo
+    let dispositivoForm = document.getElementById("device-section-1"); //Nodo con la información del dispositivo
     let formClone = dispositivoForm.cloneNode(true); // Clon del nodo
 
     formClone.id = "device-section-" + cntLlamado.toString(); // Cambia el id del nodo clonado
+    formClone.name = "device-section";
 
     // Cambia el número de dispositivo en el subtítulo
     let bajada = formClone.querySelector("#dispositivo");
