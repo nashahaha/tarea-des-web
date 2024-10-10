@@ -1,134 +1,109 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Información dispositivos</title>
-    <!-- Referencia al css respectivo-->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../css/informacion-dispositivos.css"
-    />
-    <link rel="stylesheet" href="../css/nav-bar.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-
-  <body>
-    <!--NAVEGATION BAR-->
-    <div class="navbar">
-      <img id="logo-id" src="../Images/page_logo.png" alt="Logo" />
-      <h1>ReciclaTech</h1>
-      <a class="navbar-page" href="../html/index.html">Home</a>
-      <a class="navbar-page" href="#about">About</a>
-      <a class="navbar-page" href="#contact">Contact</a>
-    </div>
-    <!--MAIN CONTAINER-->
-    <div class="main-container">
-      <div class="info-containers">
-        <!--INFORMACION DE CONTACTO-->
-        <div id="donor-info" class="info-box">
-          <h2>Información de contacto:</h2>
-          <div class="data-container">
-            <p class="data-label">Nombre del donante:</p>
-            <p class="data-value">Juanín Juan Harry</p>
-          </div>
-
-          <div class="data-container">
-            <p class="data-label">Email del donante:</p>
-            <p class="data-value">juanin@31minutos.cl</p>
-          </div>
-
-          <div class="data-container">
-            <p class="data-label">Número de teléfono:</p>
-            <p class="data-value">12345678</p>
-          </div>
-
-          <div class="data-container">
-            <p class="data-label">Región:</p>
-            <p class="data-value">Región metropolitana</p>
-          </div>
-
-          <div class="data-container">
-            <p class="data-label">Comuna:</p>
-            <p class="data-value">Titirilquén</p>
-          </div>
-        </div>
-
-        <!--INFORMACIÓN DEL DISPOSITIVO-->
-        <div id="device-info" class="info-box">
-          <h2>Información del dispositivo:</h2>
-          <div class="data-container">
-            <p class="data-label">Nombre del dispositivo:</p>
-            <p class="data-value">Audifonos</p>
-          </div>
-
-          <div class="data-container-e">
-            <p class="data-label">Descripción:</p>
-            <p class="data-value">
-              Audífonos con micrófono, de color naranja en los auriculares
-              mientras que el resto es negro.
-            </p>
-          </div>
-
-          <div class="data-container">
-            <p class="data-label">Tipo:</p>
-            <p class="data-value">JJH123</p>
-          </div>
-
-          <div class="data-container">
-            <p class="data-label">Años de uso:</p>
-            <p class="data-value">21</p>
-          </div>
-
-          <div class="data-container">
-            <p class="data-label">Estado de funcionamiento:</p>
-            <p class="data-value">Funciona perfecto</p>
-          </div>
-
-          <div class="data-container-e">
-            <p class="data-label">Fotos del producto:</p>
-            <p class="data-value">
-              <img
-                id="img1"
-                src="../Images/juanin.png"
-                alt="placeholder image"
-              />
-            </p>
-          </div>
-        </div>
+{% extends 'base.html' %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/informacion-dispositivos.css') }}"
+/>
+{% endblock %} {% block content %}
+<!--MAIN CONTAINER-->
+<div class="main-container">
+  <div class="info-containers">
+    <!--INFORMACION DE CONTACTO-->
+    {% if data %} {%for info in data%}
+    <div id="donor-info" class="info-box">
+      <h2>Información de contacto:</h2>
+      <div class="data-container">
+        <p class="data-label">Nombre del donante:</p>
+        <p class="data-value">{{info.nombre}}</p>
       </div>
-      <!--COMENTARIOS-->
-      <div id="comentarios" class="comments-cont">
-        <h3>Comentarios:</h3>
-        <form id="comment-form" method="post">
-          <label for="comm-author">Ingrese su nombre:</label>
-          <input
-            id="comm-author"
-            name="comm-author"
-            type="text"
-            minlength="3"
-            maxlength="80"
-            required
-          />
-          <br />
-          <textarea
-            name="comm-text-area"
-            id="comm-text-area"
-            cols="50"
-            rows="4"
-          ></textarea>
-          <br />
-          <button type="button" id="submit-comm-btn">Agregar comentario</button>
-          <p id="error" hidden>Error en el comentario</p>
-          <p id="sended" hidden>Se agregó el comentario</p>
-        </form>
 
-        <div id="comments-list"></div>
+      <div class="data-container">
+        <p class="data-label">Email del donante:</p>
+        <p class="data-value">{{info.email}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Número de teléfono:</p>
+        <p class="data-value">{{info.telefono}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Región:</p>
+        <p class="data-value">{{info.region}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Comuna:</p>
+        <p class="data-value">{{info.comuna}}</p>
       </div>
     </div>
-    <script src="../js/info-del-dispositivo.js"></script>
-  </body>
-</html>
+
+    <!--INFORMACIÓN DEL DISPOSITIVO-->
+    <div id="device-info" class="info-box">
+      <h2>Información del dispositivo:</h2>
+      <div class="data-container">
+        <p class="data-label">Nombre del dispositivo:</p>
+        <p class="data-value">{{info.dispositivo}}</p>
+      </div>
+
+      <div class="data-container-e">
+        <p class="data-label">Descripción:</p>
+        <p class="data-value">{{info.descr}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Tipo:</p>
+        <p class="data-value">{{info.tipo}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Años de uso:</p>
+        <p class="data-value">{{info.anhos}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Estado de funcionamiento:</p>
+        <p class="data-value">{{info.estado}}</p>
+      </div>
+
+      <div class="data-container-e">
+        <p class="data-label">Fotos del producto:</p>
+        <p class="data-value">
+          <img id="img1" src="{{info.img_path}}" alt="placeholder image" />
+        </p>
+      </div>
+    </div>
+    {% endfor %} {% endif %}
+  </div>
+  <!--COMENTARIOS-->
+  <div id="comentarios" class="comments-cont">
+    <h3>Comentarios:</h3>
+    <form id="comment-form" method="post">
+      <label for="comm-author">Ingrese su nombre:</label>
+      <input
+        id="comm-author"
+        name="comm-author"
+        type="text"
+        minlength="3"
+        maxlength="80"
+        required
+      />
+      <br />
+      <textarea
+        name="comm-text-area"
+        id="comm-text-area"
+        cols="50"
+        rows="4"
+      ></textarea>
+      <br />
+      <button type="button" id="submit-comm-btn">Agregar comentario</button>
+      <p id="error" hidden>Error en el comentario</p>
+      <p id="sended" hidden>Se agregó el comentario</p>
+    </form>
+
+    <div id="comments-list"></div>
+  </div>
+</div>
+
+{% endblock content %} {% block javascript %}
+<script src="../js/info-del-dispositivo.js"></script>
+{% endblock %}

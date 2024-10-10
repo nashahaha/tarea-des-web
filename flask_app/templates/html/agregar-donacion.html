@@ -1,231 +1,197 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Agregar dispositivo</title>
+{% extends 'base.html' %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/agregar-donacion.css') }}"
+/>
+{% endblock %} {% block content %}
+<!--MAIN CONTAINER-->
 
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/nav-bar.css') }}"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/agregar-donacion.css') }}"
-    />
-  </head>
+{% if error %}
+<div class="error-message">{{ error }}</div>
+{% endif %}
+<!--CONFIRMATION MESSAGE-->
+<div id="confirmation-box" class="confirmation-box" hidden>
+  <h2 id="confirmation-msg">¿Confirma que desea publicar esta donación?</h2>
+  <div id="confirmation-list">
+    <button id="submit-btn" class="confirmation-btn">Si, confirmo</button>
+    <button id="back-btn" class="confirmation-btn">
+      No, quiero volver al formulario
+    </button>
+  </div>
+</div>
 
-  <body>
-    <!--NAVEGATION BAR-->
-    <div class="navbar" id="navbar">
-      <img
-        id="logo-id"
-        src="{{ url_for('static', filename='Images/page_logo.png') }}"
-        alt="Logo"
+<!--RETURN HOME MESSAGE-->
+<div id="return-to-home" class="return-to-home" hidden>
+  <p>Hemos recibido la información de su donación. Muchas gracias.</p>
+  <a href="{{ url_for('index') }}">Volver al inicio</a>
+</div>
+
+<!--FORM-->
+<form
+  class="formulario"
+  id="form"
+  name="form"
+  action="{{ url_for('confirmarForm') }}"
+  method="post"
+  enctype="multipart/form-data"
+>
+  <!--INFO DE CONTACTO-->
+  <h2 class="bajada">Ingrese sus datos para realizar su donación</h2>
+  <div id="contact-section">
+    <h3 class="bajada2">Información de contacto:</h3>
+    <!--NOMBRE COMPLETO-->
+    <div class="grupo-input">
+      <label for="username">Nombre completo</label>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        minlength="3"
+        maxlength="80"
+        size="80"
+        required
       />
-      <h1>ReciclaTech</h1>
-      <a class="navbar-page" href="{{ url_for('index') }}">Home</a>
-      <a class="navbar-page" href="#about">About</a>
-      <a class="navbar-page" href="#contact">Contact</a>
     </div>
-    <!--MAIN CONTAINER-->
-    <div class="container">
-      {% if error %}
-      <div class="error-message">{{ error }}</div>
-      {% endif %}
-      <!--CONFIRMATION MESSAGE-->
-      <div id="confirmation-box" class="confirmation-box" hidden>
-        <h2 id="confirmation-msg">
-          ¿Confirma que desea publicar esta donación?
-        </h2>
-        <div id="confirmation-list">
-          <button id="submit-btn" class="confirmation-btn">Si, confirmo</button>
-          <button id="back-btn" class="confirmation-btn">
-            No, quiero volver al formulario
-          </button>
-        </div>
-      </div>
+    <!--DIRECCIÓN EMAIL-->
+    <div class="grupo-input">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="text" size="30" required />
+    </div>
+    <!--NÚMERO DE TELEFONO-->
+    <div class="grupo-input">
+      <label for="phone-number">Número de teléfono</label>
+      <input
+        id="phone-number"
+        name="phone-number"
+        type="text"
+        placeholder="569XXXXXXXX"
+        maxlength="12"
+        size="15"
+      />
+    </div>
+    <!--SELECCIÓN REGIÓN-->
+    <div class="grupo-input">
+      <label for="select-region">Región</label>
+      <select id="select-region" name="select-region" required>
+        <option value="">Seleccione</option>
+      </select>
+    </div>
 
-      <!--RETURN HOME MESSAGE-->
-      <div id="return-to-home" class="return-to-home" hidden>
-        <p>Hemos recibido la información de su donación. Muchas gracias.</p>
-        <a href="{{ url_for('index') }}">Volver al inicio</a>
-      </div>
-
-      <!--FORM-->
-      <form
-        class="formulario"
-        id="form"
-        name="form"
-        action="{{ url_for('confirmarForm') }}"
-        method="post"
-        enctype="multipart/form-data"
+    <!--SELECCIÓN COMUNA-->
+    <div class="grupo-input">
+      <label for="select-comuna">Comuna</label>
+      <select id="select-comuna" name="select-comuna" required>
+        <option value="">Seleccione</option>
+      </select>
+    </div>
+  </div>
+  <!--INFO DEL DISPOSITIVO-->
+  <div id="device-section-1" name="device-section">
+    <h3 id="dispositivo" class="bajada2">Información del dispositivo:</h3>
+    <!--NOMBRE DEL DISPOSITIVO-->
+    <div class="grupo-input">
+      <label for="device-name">Nombre del dispositivo</label>
+      <input
+        id="device-name"
+        class="device-name"
+        name="device-name"
+        type="text"
+        minlength="3"
+        maxlength="80"
+        size="80"
+        required
+      />
+    </div>
+    <!--DESCRIPCIÓN DEL DISPOSITIVO-->
+    <div class="grupo-input">
+      <label for="device-descr">Descripción</label>
+      <br />
+      <textarea
+        id="device-descr"
+        class="device-descr"
+        name="device-descr"
+        cols="50"
+        rows="4"
+      ></textarea>
+    </div>
+    <!--TIPO DE DISPOSITIVO-->
+    <div class="grupo-input">
+      <label for="device-type">Tipo de dispositivo</label>
+      <select id="device-type" class="device-type" name="device-type" required>
+        <option value="">Seleccione</option>
+        <option value="pantalla">Pantalla</option>
+        <option value="notebook">Notebook</option>
+        <option value="tablet">Tablet</option>
+        <option value="celular">Celular</option>
+        <option value="consola">Consola</option>
+        <option value="mouse">Mouse</option>
+        <option value="teclado">Teclado</option>
+        <option value="impresora">Impresora</option>
+        <option value="parlante">Parlante</option>
+        <option value="audifonos">Audífonos</option>
+        <option value="otro">Otro...</option>
+      </select>
+    </div>
+    <!--AÑOS DE USO-->
+    <div class="grupo-input">
+      <label for="years-of-use">Años de uso</label>
+      <input
+        id="years-of-use"
+        class="years-of-use"
+        name="years-of-use"
+        type="text"
+        minlength="1"
+        maxlength="3"
+        size="3"
+        required
+      />
+    </div>
+    <!--ESTADO DE FUNCIONAMIENTO-->
+    <div class="grupo-input">
+      <label for="working-status">Funcionamiento del dispositivo</label>
+      <select
+        id="working-status"
+        class="working-status"
+        name="working-status"
+        required
       >
-        <!--INFO DE CONTACTO-->
-        <h2 class="bajada">Ingrese sus datos para realizar su donación</h2>
-        <div id="contact-section">
-          <h3 class="bajada2">Información de contacto:</h3>
-          <!--NOMBRE COMPLETO-->
-          <div class="grupo-input">
-            <label for="username">Nombre completo</label>
-            <input
-              id="username"
-              name="username"
-              type="text"
-              minlength="3"
-              maxlength="80"
-              size="80"
-              required
-            />
-          </div>
-          <!--DIRECCIÓN EMAIL-->
-          <div class="grupo-input">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="text" size="30" required />
-          </div>
-          <!--NÚMERO DE TELEFONO-->
-          <div class="grupo-input">
-            <label for="phone-number">Número de teléfono</label>
-            <input
-              id="phone-number"
-              name="phone-number"
-              type="text"
-              placeholder="569XXXXXXXX"
-              maxlength="12"
-              size="15"
-            />
-          </div>
-          <!--SELECCIÓN REGIÓN-->
-          <div class="grupo-input">
-            <label for="select-region">Región</label>
-            <select id="select-region" name="select-region" required>
-              <option value="">Seleccione</option>
-            </select>
-          </div>
-
-          <!--SELECCIÓN COMUNA-->
-          <div class="grupo-input">
-            <label for="select-comuna">Comuna</label>
-            <select id="select-comuna" name="select-comuna" required>
-              <option value="">Seleccione</option>
-            </select>
-          </div>
-        </div>
-        <!--INFO DEL DISPOSITIVO-->
-        <div id="device-section">
-          <h3 id="dispositivo" class="bajada2">Información del dispositivo:</h3>
-          <!--NOMBRE DEL DISPOSITIVO-->
-          <div class="grupo-input">
-            <label for="device-name">Nombre del dispositivo</label>
-            <input
-              id="device-name"
-              class="device-name"
-              name="device-name"
-              type="text"
-              minlength="3"
-              maxlength="80"
-              size="80"
-              required
-            />
-          </div>
-          <!--DESCRIPCIÓN DEL DISPOSITIVO-->
-          <div class="grupo-input">
-            <label for="device-descr">Descripción</label>
-            <br />
-            <textarea
-              id="device-descr"
-              class="device-descr"
-              name="device-descr"
-              cols="50"
-              rows="4"
-            ></textarea>
-          </div>
-          <!--TIPO DE DISPOSITIVO-->
-          <div class="grupo-input">
-            <label for="device-type">Tipo de dispositivo</label>
-            <select
-              id="device-type"
-              class="device-type"
-              name="device-type"
-              required
-            >
-              <option value="">Seleccione</option>
-              <option value="pantalla">Pantalla</option>
-              <option value="notebook">Notebook</option>
-              <option value="tablet">Tablet</option>
-              <option value="celular">Celular</option>
-              <option value="consola">Consola</option>
-              <option value="mouse">Mouse</option>
-              <option value="teclado">Teclado</option>
-              <option value="impresora">Impresora</option>
-              <option value="parlante">Parlante</option>
-              <option value="audifonos">Audífonos</option>
-              <option value="otro">Otro...</option>
-            </select>
-          </div>
-          <!--AÑOS DE USO-->
-          <div class="grupo-input">
-            <label for="years-of-use">Años de uso</label>
-            <input
-              id="years-of-use"
-              class="years-of-use"
-              name="years-of-use"
-              type="text"
-              minlength="1"
-              maxlength="3"
-              size="3"
-              required
-            />
-          </div>
-          <!--ESTADO DE FUNCIONAMIENTO-->
-          <div class="grupo-input">
-            <label for="working-status">Funcionamiento del dispositivo</label>
-            <select
-              id="working-status"
-              class="working-status"
-              name="working-status"
-              required
-            >
-              <option value="">Seleccione</option>
-              <option value="funciona">Funciona perfecto</option>
-              <option value="no-funciona">No funciona</option>
-              <option value="funciona-medias">Funciona a medias</option>
-            </select>
-          </div>
-
-          <!--FOTOS DE PRODUCTOS-->
-          <div class="grupo-input">
-            <label for="device-pics">Fotos del dispositivo</label>
-            <input
-              id="device-pics"
-              class="device-pics"
-              name="device-pics"
-              type="file"
-              multiple
-              accept="image/*"
-              required
-            />
-          </div>
-        </div>
-
-        <!--BOTON AGREGAR MAS DISPOSITIVOS-->
-        <div class="botones" id="add-device-btn">
-          <br />
-          <button type="button" id="add-device">
-            Agregar otro dispositivo a esta donación
-          </button>
-        </div>
-        <!--BOTON DE ENVIO-->
-        <div class="botones">
-          <button type="submit" id="envio">Publicar esta donación</button>
-        </div>
-      </form>
+        <option value="">Seleccione</option>
+        <option value="funciona">Funciona perfecto</option>
+        <option value="no-funciona">No funciona</option>
+        <option value="funciona-medias">Funciona a medias</option>
+      </select>
     </div>
-    <script src="{{ url_for('static', filename='js/validacion-agreg-don.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/select_region.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/agregar-dispositivo.js') }}"></script>
-  </body>
-</html>
+
+    <!--FOTOS DE PRODUCTOS-->
+    <div class="grupo-input">
+      <label for="device-pics">Fotos del dispositivo</label>
+      <input
+        id="device-pics"
+        class="device-pics"
+        name="device-pics"
+        type="file"
+        multiple
+        accept="image/*"
+        required
+      />
+    </div>
+  </div>
+
+  <!--BOTON AGREGAR MAS DISPOSITIVOS-->
+  <div class="botones" id="add-device-btn">
+    <br />
+    <button type="button" id="add-device">
+      Agregar otro dispositivo a esta donación
+    </button>
+  </div>
+  <!--BOTON DE ENVIO-->
+  <div class="botones">
+    <button type="submit" id="envio">Publicar esta donación</button>
+  </div>
+</form>
+
+{% endblock content %} {% block javascript %}
+<script src="{{ url_for('static', filename='js/validacion-agreg-don.js') }}"></script>
+<script src="{{ url_for('static', filename='js/select_region.js') }}"></script>
+<script src="{{ url_for('static', filename='js/agregar-dispositivo.js') }}"></script>
+{% endblock %}

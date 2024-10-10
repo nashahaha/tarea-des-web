@@ -1,136 +1,92 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Ver dispositivos</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='css/ver-dispositivos.css') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/nav-bar.css') }}"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+{% extends 'base.html' %} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/ver-dispositivos.css') }}"
+/>
+{% endblock %} {% block content %}
+<!--DEVICES TABLE-->
+<table>
+  <thead>
+    <tr>
+      <td>Tipo</td>
+      <td>Nombre dispositivo</td>
+      <td>Estado</td>
+      <td>Comuna</td>
+      <td>Fotos</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% if data %} {%for device in data%}
+    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
+      <td>{{device.telefono}}</td>
+      <td>{{device.tipo}}</td>
+      <td>{{device.estado}}</td>
+      <td>{{device.comuna}}</td>
+      <td>
+        <!--le quité el id a la imagen, no sé si lo necesito XD-->
+        <img class="imgs" src="{{device.img_path}}" alt="placeholder image" />
+      </td>
+    </tr>
+    {% endfor %} {% endif %}
+    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
+      <td>Tablet</td>
+      <td>ABC123</td>
+      <td>No funciona</td>
+      <td>Independencia</td>
+      <td>
+        <img
+          id="img2"
+          class="imgs"
+          src="https://upload.wikimedia.org/wikipedia/commons/7/74/2019_02_Microsoft_Surface_Pro_2017_with_signature_type_cover.jpg"
+          alt="placeholder image"
+        />
+      </td>
+    </tr>
+    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
+      <td>Teclado</td>
+      <td>UWU12345</td>
+      <td>No funciona</td>
+      <td>La pintana</td>
+      <td>
+        <img
+          id="img3"
+          class="imgs"
+          src="https://upload.wikimedia.org/wikipedia/commons/4/41/Apple-wireless-keyboard.jpg"
+          alt="placeholder image"
+        />
+      </td>
+    </tr>
+    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
+      <td>Teléfono</td>
+      <td>134340</td>
+      <td>Funciona a medias</td>
+      <td>Santiago</td>
+      <td>
+        <img
+          id="img4"
+          class="imgs"
+          src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Fire_Phone.jpg"
+          alt="placeholder image"
+        />
+      </td>
+    </tr>
+    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
+      <td>Impresora</td>
+      <td>LOL42</td>
+      <td>Funciona</td>
+      <td>Santiago</td>
+      <td>
+        <img
+          id="img5"
+          class="imgs"
+          src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Samsung_ML-2010.jpg"
+          alt="placeholder image"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-  <body>
-    <!--NAVEGATION BAR-->
-    <div class="navbar">
-      <img
-        id="logo-id"
-        src="{{ url_for('static', filename='Images/page_logo.png') }}"
-        alt="Logo"
-      />
-      <h1>ReciclaTech</h1>
-      <a class="navbar-page" href="{{ url_for('index') }}">Home</a>
-      <a class="navbar-page" href="#about">About</a>
-      <a class="navbar-page" href="#contact">Contact</a>
-    </div>
-    <!--DEVICES TABLE-->
-    <table>
-      <thead>
-        <tr>
-          <td>Tipo</td>
-          <td>Nombre dispositivo</td>
-          <td>Estado</td>
-          <td>Comuna</td>
-          <td>Fotos</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          class="clickable-row"
-          data-href="../html/informacion-dispositivo.html"
-        >
-          <td>Teléfono</td>
-          <td>CC12345</td>
-          <td>Funciona</td>
-          <td>La Granja</td>
-          <td>
-            <img
-              id="img1"
-              class="imgs"
-              src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Fire_Phone.jpg"
-              alt="placeholder image"
-            />
-          </td>
-        </tr>
-        <tr
-          class="clickable-row"
-          data-href="../html/informacion-dispositivo.html"
-        >
-          <td>Tablet</td>
-          <td>ABC123</td>
-          <td>No funciona</td>
-          <td>Independencia</td>
-          <td>
-            <img
-              id="img2"
-              class="imgs"
-              src="https://upload.wikimedia.org/wikipedia/commons/7/74/2019_02_Microsoft_Surface_Pro_2017_with_signature_type_cover.jpg"
-              alt="placeholder image"
-            />
-          </td>
-        </tr>
-        <tr
-          class="clickable-row"
-          data-href="../html/informacion-dispositivo.html"
-        >
-          <td>Teclado</td>
-          <td>UWU12345</td>
-          <td>No funciona</td>
-          <td>La pintana</td>
-          <td>
-            <img
-              id="img3"
-              class="imgs"
-              src="https://upload.wikimedia.org/wikipedia/commons/4/41/Apple-wireless-keyboard.jpg"
-              alt="placeholder image"
-            />
-          </td>
-        </tr>
-        <tr
-          class="clickable-row"
-          data-href="../html/informacion-dispositivo.html"
-        >
-          <td>Teléfono</td>
-          <td>134340</td>
-          <td>Funciona a medias</td>
-          <td>Santiago</td>
-          <td>
-            <img
-              id="img4"
-              class="imgs"
-              src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Fire_Phone.jpg"
-              alt="placeholder image"
-            />
-          </td>
-        </tr>
-        <tr
-          class="clickable-row"
-          data-href="../html/informacion-dispositivo.html"
-        >
-          <td>Impresora</td>
-          <td>LOL42</td>
-          <td>Funciona</td>
-          <td>Santiago</td>
-          <td>
-            <img
-              id="img5"
-              class="imgs"
-              src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Samsung_ML-2010.jpg"
-              alt="placeholder image"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <script src="{{ url_for('static', filename='js/ver-dispositivos.js') }}"></script>
-  </body>
-</html>
+{% endblock content %} {% block javascript %}
+<script src="{{ url_for('static', filename='js/ver-dispositivos.js') }}"></script>
+{% endblock %}
