@@ -51,3 +51,10 @@ def get_user_by_id(id):
 	cursor.execute(QUERY_DICT["get_user_by_id"], (id,))
 	user_info = cursor.fetchall()
 	return user_info
+
+def get_region_comuna_by_id_comuna(comuna_id):
+	conn = get_conn()
+	cursor = conn.cursor
+	cursor.execute(QUERY_DICT["get_region_comuna_by_id_comuna"], (comuna_id,))
+	region_comuna = cursor.fetchall()
+	return region_comuna
