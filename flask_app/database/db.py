@@ -31,9 +31,23 @@ def create_user(nombre, email, celular, comuna_id, fecha_creacion):
     cursor.execute(QUERY_DICT["create_user"], (nombre, email, celular, comuna_id, fecha_creacion))
     conn.commit()
 
-def get_id_comuna_by_nombre(nombre_comuna):
+def get_id_comuna_by_nombre(nombre_comuna): #no se usa
 	conn = get_conn()
 	cursor = conn.cursor()
 	cursor.execute(QUERY_DICT["get_comuna_by_nombre"], (nombre_comuna,))
 	comuna = cursor.fetchone()
 	return comuna
+
+def get_dispositivos(start, finish):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_devices"], (start, finish))
+	dispositivos = cursor.fetchall()
+	return dispositivos #debería devolver una lista de listas con toda la info
+
+def get_user_by_id(id):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_user_by_id"], (id,))
+	user_info = cursor.fetchall()
+	return user_info
