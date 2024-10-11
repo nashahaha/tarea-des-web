@@ -11,7 +11,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # ----- pagina principal -----
 @app.route("/")
 def index():
-    return render_template("html/index.html")
+    return render_template("html/index.html") ## AGREGAR REDIRECT
 
 @app.route("/agregar-donacion") ## NOMBRE DEL URL
 def agregarDonacion():
@@ -36,48 +36,75 @@ def verDispositivos():
             "email": email,
             "telefono": celular, 
             "region": region, 
-            "comuna": comuna, 
-            "dispositivo": nombre_disp,
+            "comuna": comuna, #
+            "dispositivo": nombre_disp, #
             "descr": descripcion,
-            "tipo": tipo, 
+            "tipo": tipo, #
             "anhos": anhos_uso,
-            "estado": estado
+            "estado": estado #
         })
 
     return render_template("html/ver-dispositivos.html", data=data)
+
+@app.route("/informacion-dispositivo/<int:contacto_id>", methods=["GET"])
+def verInfoDispositivo(contacto_id:int):
+    #obtenemos la info de la base de datos y mostramos
+    nombre_disp, descr, tipo, anhos_uso, estado = db.get_device_by_contacto_id(contacto_id)
+    _, nombre, email, celular, comuna_id, _ = db.get_user_by_id(contacto_id)
+
+    comuna, region = db.get_region_comuna_by_id_comuna(comuna_id)
+
+        # OBTENER IMAGENES !!!!!!
+        
+    #data=[]
+
+    ##REVISAR CUALES NO SE USAN
+    data = {
+        "nombre": nombre,
+        "email": email,
+        "telefono": celular, 
+        "region": region, 
+        "comuna": comuna,
+        "dispositivo": nombre_disp,
+        "descr": descr,
+        "tipo": tipo,
+        "anhos": anhos_uso,
+        "estado": estado 
+    }
+    return render_template("html/informacion-dispositivo.html", data=data, contacto_id=contacto_id)
 
 @app.route("/confirmar", methods=["POST"])
 def confirmarForm():
     name   = request.form.get("username")
     email  = request.form.get("email")
-    phone  = request.form.get("phone-number") 
-    region = request.form.get("select-region") 
+    phone  = request.form.get("phone-number")
+    region = request.form.get("select-region")
     comuna = request.form.get("select-comuna")
 
-    device  = request.form.get("device-name")
-    descrip = request.form.get("device-descr")
-    tipo    = request.form.get("device-type")
-    anhos   = request.form.get("years-of-use") ##primero validar (como str), hacer strip() y luego pasar a int
-    estado  = request.form.get("working-status")
-    fotos   = request.files.get("device-pics")
+    device  = request.form.getlist("device-name")
+    descrip = request.form.getlist("device-descr")
+    tipo    = request.form.getlist("device-type")
+    anhos   = request.form.getlist("years-of-use") ##primero validar (como str), hacer strip() y luego pasar a int
+    estado  = request.form.getlist("working-status")
+    fotos   = request.files.getlist("device-pics") #duda
 
     if validate_user(name, email, phone, region, comuna):
         fecha_creacion = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        db.create_user(name, email, phone, int(comuna), fecha_creacion)
-    else:
-        error="Hay un error!"
+        contacto_id = db.create_user(name.lower, email, phone, int(comuna), fecha_creacion)
+    else: # para debugear
+        error="Hay un error! (user)"
         print(error)
         return render_template("html/agregar-donacion.html",error=error)
     
-    devices_info  = request.form.get("device-section")
-    i = 1 # revisar cual es el primero
-    #while ??? :
-    #    i+=1
-    #    if validate_device(device, descrip, tipo, anhos, estado, fotos):
-            
-    
-       
+    for i in range(len(device)):
+        if validate_device(device[i], descrip[i], tipo[i], anhos[i], estado[i], fotos[i]):
+            db.create_device(contacto_id, device[i], descrip[i], tipo[i], anhos[i], estado[i])
+        else: #para debugear
+            error="Hay un error! (device)"
+            print(error)
+            return render_template("html/agregar-donacion.html",error=error)
     return render_template("html/agregar-donacion.html")
+
 
 
 if __name__ == "__main__":

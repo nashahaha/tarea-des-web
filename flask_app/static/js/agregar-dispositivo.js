@@ -17,7 +17,7 @@ let cntLlamado = 1; // Contador de llamados
 
     // Selecciona todos los elementos dentro del clon que tengan un id, nombre y error
     let elementsWithId = formClone.querySelectorAll("[id]");
-    let elementsWithName = formClone.querySelectorAll("[name]");
+    //let elementsWithName = formClone.querySelectorAll("[name]");
     let elementsWithError = formClone.querySelectorAll('.error');
 
       elementsWithId.forEach(element => {
@@ -40,10 +40,10 @@ let cntLlamado = 1; // Contador de llamados
           element.style.borderColor = "";
       });
 
-      elementsWithName.forEach(element => {
-          let originalName = element.name;
-          element.name = originalName + "-" + cntLlamado;
-      });
+      //elementsWithName.forEach(element => {
+      //    let originalName = element.name;
+      //    element.name = originalName + "-" + cntLlamado;
+      //});
 
       //Limpia el error del clon de origen
       elementsWithError.forEach(element => {

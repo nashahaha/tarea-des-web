@@ -17,7 +17,13 @@
   </thead>
   <tbody>
     {% if data %} {% for device in data %}
-    <tr class="clickable-row">
+    <!--quizá para redirigir puedo usar action en vez de data-href, no se si está permitido en las tablas-->
+    <tr
+      id="{{device.contacto_id}}"
+      class="clickable-row"
+      onclick="goToInfoDevice(this)"
+      style="cursor: pointer"
+    >
       <td>{{ device.tipo }}</td>
       <td>{{ device.dispositivo }}</td>
       <td>{{ device.estado }}</td>

@@ -5,3 +5,10 @@ document.querySelectorAll('.clickable-row').forEach(row => {
         window.location.href = this.getAttribute('data-href');
     });
 });
+
+
+function goToInfoDevice(elem) { 
+    console.log("Contact ID: ", elem.id); // Debugging step
+    let contacto_id = elem.id;
+    window.location.href = "/informacion-dispositivo/" + contacto_id;
+}

@@ -8,32 +8,32 @@
 <div class="main-container">
   <div class="info-containers">
     <!--INFORMACION DE CONTACTO-->
-    {% if data %} {%for info in data%}
+    {% if data %}
     <div id="donor-info" class="info-box">
       <h2>Información de contacto:</h2>
       <div class="data-container">
         <p class="data-label">Nombre del donante:</p>
-        <p class="data-value">{{info.nombre}}</p>
+        <p class="data-value">{{data.nombre}}</p>
       </div>
 
       <div class="data-container">
         <p class="data-label">Email del donante:</p>
-        <p class="data-value">{{info.email}}</p>
+        <p class="data-value">{{data.email}}</p>
       </div>
 
       <div class="data-container">
         <p class="data-label">Número de teléfono:</p>
-        <p class="data-value">{{info.telefono}}</p>
+        <p class="data-value">{{data.telefono}}</p>
       </div>
 
       <div class="data-container">
         <p class="data-label">Región:</p>
-        <p class="data-value">{{info.region}}</p>
+        <p class="data-value">{{data.region}}</p>
       </div>
 
       <div class="data-container">
         <p class="data-label">Comuna:</p>
-        <p class="data-value">{{info.comuna}}</p>
+        <p class="data-value">{{data.comuna}}</p>
       </div>
     </div>
 
@@ -42,37 +42,37 @@
       <h2>Información del dispositivo:</h2>
       <div class="data-container">
         <p class="data-label">Nombre del dispositivo:</p>
-        <p class="data-value">{{info.dispositivo}}</p>
+        <p class="data-value">{{data.dispositivo}}</p>
       </div>
 
       <div class="data-container-e">
         <p class="data-label">Descripción:</p>
-        <p class="data-value">{{info.descr}}</p>
+        <p class="data-value">{{data.descr}}</p>
       </div>
 
       <div class="data-container">
         <p class="data-label">Tipo:</p>
-        <p class="data-value">{{info.tipo}}</p>
+        <p class="data-value">{{data.tipo}}</p>
       </div>
 
       <div class="data-container">
         <p class="data-label">Años de uso:</p>
-        <p class="data-value">{{info.anhos}}</p>
+        <p class="data-value">{{data.anhos}}</p>
       </div>
 
       <div class="data-container">
         <p class="data-label">Estado de funcionamiento:</p>
-        <p class="data-value">{{info.estado}}</p>
+        <p class="data-value">{{data.estado}}</p>
       </div>
 
       <div class="data-container-e">
         <p class="data-label">Fotos del producto:</p>
         <p class="data-value">
-          <img id="img1" src="{{info.img_path}}" alt="placeholder image" />
+          <img id="img1" src="{{data.img_path}}" alt="placeholder image" />
         </p>
       </div>
     </div>
-    {% endfor %} {% endif %}
+    {% endif %}
   </div>
   <!--COMENTARIOS-->
   <div id="comentarios" class="comments-cont">
