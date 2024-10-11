@@ -23,42 +23,34 @@ def verDispositivos():
     FIRST = 0
     data = []
     for device in db.get_dispositivos(FIRST):
-        _, contacto_id, nombre_disp, descripcion, tipo, anhos_uso, estado = device
-        _, nombre, email, celular, comuna_id, _ = db.get_user_by_id(contacto_id)
+        _, contacto_id, nombre_disp, _, tipo, _, estado = device
+        _, _, _, _, comuna_id, _ = db.get_user_by_id(contacto_id)
 
         comuna, region = db.get_region_comuna_by_id_comuna(comuna_id)
 
         # OBTENER IMAGENES !!!!!!
         
-        # entregar la informacion a la plantilla
         data.append({
-            "nombre": nombre,
-            "email": email,
-            "telefono": celular, 
-            "region": region, 
-            "comuna": comuna, #
-            "dispositivo": nombre_disp, #
-            "descr": descripcion,
-            "tipo": tipo, #
-            "anhos": anhos_uso,
-            "estado": estado #
+            "contacto_id": contacto_id,
+            "comuna": comuna, 
+            "dispositivo": nombre_disp, 
+            "tipo": tipo, 
+            "estado": estado 
         })
 
     return render_template("html/ver-dispositivos.html", data=data)
 
-@app.route("/informacion-dispositivo/<int:contacto_id>", methods=["GET"])
-def verInfoDispositivo(contacto_id:int):
+@app.route("/informacion-dispositivo/<contacto_id>", methods=["GET"])
+def verInfoDispositivo(contacto_id):
     #obtenemos la info de la base de datos y mostramos
+
     nombre_disp, descr, tipo, anhos_uso, estado = db.get_device_by_contacto_id(contacto_id)
     _, nombre, email, celular, comuna_id, _ = db.get_user_by_id(contacto_id)
 
     comuna, region = db.get_region_comuna_by_id_comuna(comuna_id)
 
-        # OBTENER IMAGENES !!!!!!
-        
-    #data=[]
+    # OBTENER IMAGENES !!!!!!
 
-    ##REVISAR CUALES NO SE USAN
     data = {
         "nombre": nombre,
         "email": email,

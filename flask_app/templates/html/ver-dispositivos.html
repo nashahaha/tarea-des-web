@@ -19,7 +19,7 @@
     {% if data %} {% for device in data %}
     <!--quizá para redirigir puedo usar action en vez de data-href, no se si está permitido en las tablas-->
     <tr
-      id="{{device.contacto_id}}"
+      data-contacto-id="{{device.contacto_id}}"
       class="clickable-row"
       onclick="goToInfoDevice(this)"
       style="cursor: pointer"
