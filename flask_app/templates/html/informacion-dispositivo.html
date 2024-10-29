@@ -1,0 +1,110 @@
+{% extends 'base.html' %} {% block title %} Informacion dipositivo {% endblock
+%} {% block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/informacion-dispositivos.css') }}"
+/>
+{% endblock %} {% block content %}
+<!--MAIN CONTAINER-->
+<div class="main-container">
+  <div class="info-containers">
+    <!--INFORMACION DE CONTACTO-->
+    {% if data %}
+    <div id="donor-info" class="info-box">
+      <h2>Información de contacto:</h2>
+      <div class="data-container">
+        <p class="data-label">Nombre del donante:</p>
+        <p class="data-value">{{data.nombre}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Email del donante:</p>
+        <p class="data-value">{{data.email}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Número de teléfono:</p>
+        <p class="data-value">{{data.telefono}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Región:</p>
+        <p class="data-value">{{data.region}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Comuna:</p>
+        <p class="data-value">{{data.comuna}}</p>
+      </div>
+    </div>
+
+    <!--INFORMACIÓN DEL DISPOSITIVO-->
+    <div id="device-info" class="info-box">
+      <h2>Información del dispositivo:</h2>
+      <div class="data-container">
+        <p class="data-label">Nombre del dispositivo:</p>
+        <p class="data-value">{{data.dispositivo}}</p>
+      </div>
+
+      <div class="data-container-e">
+        <p class="data-label">Descripción:</p>
+        <p class="data-value">{{data.descr}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Tipo:</p>
+        <p class="data-value">{{data.tipo}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Años de uso:</p>
+        <p class="data-value">{{data.anhos}}</p>
+      </div>
+
+      <div class="data-container">
+        <p class="data-label">Estado de funcionamiento:</p>
+        <p class="data-value">{{data.estado}}</p>
+      </div>
+
+      <div class="data-container-e">
+        <p class="data-label">Fotos del producto:</p>
+        <p class="data-value">
+          <img id="img1" src="{{data.pic_path}}" alt="placeholder image" />
+        </p>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <!--COMENTARIOS-->
+  <div id="comentarios" class="comments-cont">
+    <h3>Comentarios:</h3>
+    <form id="comment-form" method="post">
+      <label for="comm-author">Ingrese su nombre:</label>
+      <input
+        id="comm-author"
+        name="comm-author"
+        type="text"
+        minlength="3"
+        maxlength="80"
+        required
+      />
+      <br />
+      <textarea
+        name="comm-text-area"
+        id="comm-text-area"
+        cols="50"
+        rows="4"
+      ></textarea>
+      <br />
+      <button type="button" id="submit-comm-btn">Agregar comentario</button>
+      <p id="error" hidden>Error en el comentario</p>
+      <p id="sended" hidden>Se agregó el comentario</p>
+    </form>
+
+    <div id="comments-list"></div>
+  </div>
+</div>
+
+{% endblock content %} {% block javascript %}
+<script src="../js/info-del-dispositivo.js"></script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block title %} Indice {% endblock %} {% block css
+%}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/index.css') }}"
+/>
+{% endblock %} {% block content %}
+<!--MAIN CONTAINER-->
+<a class="option-box" href="{{ url_for('agregarDonacion') }}">
+  <img
+    class="btn-icons"
+    src="https://cdn-icons-png.flaticon.com/512/2904/2904845.png"
+    alt="donation-logo"
+  />
+  Agregar donación
+</a>
+
+<a class="option-box" href="{{ url_for('verDispositivos', page=1) }}">
+  <img
+    class="btn-icons"
+    src="https://static.vecteezy.com/system/resources/previews/005/242/944/original/phone-icon-telephone-icon-symbol-in-hand-for-app-and-messenger-free-vector.jpg"
+    alt="devices-logo"
+  />
+  Ver dispositivos
+</a>
+
+{% endblock content %} {% block javascript %} {% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Referencia al css respectivo-->
+    {% block css %}{% endblock %}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/nav-bar.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!--NAVEGATION BAR-->
+    <div class="navbar">
+      <img
+        id="logo-id"
+        src="{{ url_for('static', filename='Images/page_logo.png') }}"
+        alt="Logo"
+        href="{{ url_for('index') }}"
+      />
+      <h1>ReciclaTech</h1>
+      <a class="navbar-page" href="{{ url_for('index') }}">Home</a>
+      <a class="navbar-page" href="#about">About</a>
+      <a class="navbar-page" href="#contact">Contact</a>
+    </div>
+  </body>
+  <section class="main-container">
+    {% block content %}{% endblock %} {% block javascript %}{% endblock %}
+  </section>
+</html>
