@@ -75,10 +75,16 @@
     </div>
     {% endif %}
   </div>
+
   <!--COMENTARIOS-->
   <div id="comentarios" class="comments-cont">
     <h3>Comentarios:</h3>
-    <form id="comment-form" method="post">
+    <form
+      id="comment-form"
+      method="POST"
+      action="{{url_for('add_comment', device_id=device_id)}}"
+      enctype="multipart/form-data"
+    >
       <label for="comm-author">Ingrese su nombre:</label>
       <input
         id="comm-author"
@@ -96,15 +102,25 @@
         rows="4"
       ></textarea>
       <br />
-      <button type="button" id="submit-comm-btn">Agregar comentario</button>
+      <button id="submit-comm-btn" type="submit">Agregar comentario</button>
       <p id="error" hidden>Error en el comentario</p>
       <p id="sended" hidden>Se agregó el comentario</p>
     </form>
 
-    <div id="comments-list"></div>
+    <div id="comments-list">
+      {% if comments_list %} {% for comment in comments_list%}
+      <div class="comm-container">
+        <div class="head-container">
+          <p class="comm-author">{{comment.nombre}}</p>
+          <p class="comm-date">{{comment.fecha}}</p>
+        </div>
+        <p class="comm-text">{{comment.text}}</p>
+      </div>
+      {%endfor%} {%endif%}
+    </div>
   </div>
-</div>
 
-{% endblock content %} {% block javascript %}
-<script src="../js/info-del-dispositivo.js"></script>
-{% endblock %}
+  {% endblock content %} {% block javascript %}
+  <script src="../js/info-del-dispositivo.js"></script>
+  {% endblock %}
+</div>

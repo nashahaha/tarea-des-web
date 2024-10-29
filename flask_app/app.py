@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for, session
-from utils.validations import validate_user, validate_device, validate_file
+from utils.validations import validate_user, validate_device, validate_comment, validate_name
 from database import db
 from datetime import datetime
 from werkzeug.utils import secure_filename
@@ -107,7 +107,6 @@ def verDispositivos(page):
 @app.route("/informacion-dispositivo/<device_id>", methods=["GET"])
 def verInfoDispositivo(device_id):
     #obtenemos la info de la base de datos y mostramos
-
     _, contacto_id, nombre_disp, descr, tipo, anhos_uso, estado = db.get_device_by_id(device_id)
     _, nombre, email, celular, comuna_id, _ = db.get_user_by_id(contacto_id)
 
@@ -128,7 +127,28 @@ def verInfoDispositivo(device_id):
         "estado": estado,
         "pic_path": url_for('static', filename=ruta_arch)
     }
-    return render_template("html/informacion-dispositivo.html", data=data, device_id=device_id)
+
+    comm_list = db.get_comments_by_device_id(device_id)
+    comments_list = []
+    for comment in comm_list:
+        comm_nombre, comm_text, comm_fecha = comment
+        comments_list.append( {
+            "nombre": comm_nombre,
+            "fecha": comm_fecha,
+            "text": comm_text
+        })
+    return render_template("html/informacion-dispositivo.html", data=data, device_id=device_id, comments_list=comments_list)
+
+@app.route("/add_comment/<device_id>", methods=["POST"])
+def add_comment(device_id):
+    name = request.form.get("comm-author")
+    comm = request.form.get("comm-text-area")
+    fecha = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+    if validate_comment(comm) and validate_name(name):
+        db.create_comment(name, comm, fecha, device_id)
+    
+    return redirect(url_for("verInfoDispositivo", device_id=device_id))
 
 if __name__ == "__main__":
     app.run(debug=True)

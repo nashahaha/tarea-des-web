@@ -13,7 +13,6 @@ def validate_phone(phone):
     valid_phone = re.compile(r"^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$")
     return bool(valid_phone.match(phone)) or phone==""
 
-## HAY UN ERROR CUNDO NO SE ENTREGA EL NÚMERO DE TELÉFONO
 def validate_device_name(device):
     return device is not None and len(device)>=3 and len(device)<=80
 
@@ -58,6 +57,9 @@ def validate_device(device, description, type, years, status, pics):
         if not validate_file(pic):
             return False
     return validate_device_name(device) and validate_description(description) and validate_select(type) and validate_years(years) and validate_select(status)
+
+def validate_comment(comm: str):
+    return True
 
 #print("nombre:", validate_name("  a ")== False)
 #print("email:", validate_email("ignacia@galaz@alvarado.com")==False)

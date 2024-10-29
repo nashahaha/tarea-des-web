@@ -9,24 +9,28 @@ const validarNombre=(nombre) =>
       return nombre && nombre.length>=3 && nombre.length<=80 && validName.test(nombre);
   } 
 
-const agregarComentario = () => {
-  let commText = comTextArea.value;
-  let name = document.getElementById("comm-author");
+const agregarComentario = (nombre, commText, fecha) => {
+  //OBTIENE EL INPUT
+  //let commText = comTextArea.value;
+  //let name = document.getElementById("comm-author");
 
-  let error = document.getElementById("error");
-  let sended = document.getElementById("sended");
-  let isValid = validarComentario(commText) && validarNombre(name.value);
-
-  if (!isValid) {
-    error.style.color = 'red';
-    error.hidden = false;
-    sended.hidden = true;
-    return;
-  } else {
-    error.hidden = true;
-    sended.hidden = false;
-  }
+  //let error = document.getElementById("error");
+  //let sended = document.getElementById("sended");
   
+
+  // VALIDA INPUT
+  //let isValid = validarComentario(commText) && validarNombre(name.value);
+  //if (!isValid) {
+  //  error.style.color = 'red';
+  //  error.hidden = false;
+  //  sended.hidden = true;
+  //  return;
+  //} else {
+  //  error.hidden = true;
+  //  sended.hidden = false;
+  //}
+  
+  //CREA BLOQUES PARA MOSTRAR EN PANTALLA
   // contenedor comentario
   const commContainer = document.createElement("div");
   commContainer.className = "comm-container";
@@ -34,18 +38,17 @@ const agregarComentario = () => {
   // username
   const commentAuthor = document.createElement("p");
   commentAuthor.className = "comm-author";
-  commentAuthor.innerText = document.getElementById("comm-author").value;
+  commentAuthor.innerText = nombre;
 
   // texto del comentario
   const comment = document.createElement("p");
   console.log(commText);
   comment.innerText = commText;
 
-  // obtenemos fecha actual
-  const hoy = new Date(Date.now());
+  // fecha del comentario
   const commDate = document.createElement("p");
   commDate.className = "comm-date";
-  commDate.innerText = hoy.toDateString();
+  commDate.innerText = fecha;
 
   // contenedor nombre y fecha
   const headContainer = document.createElement("div");
@@ -58,14 +61,17 @@ const agregarComentario = () => {
   commContainer.appendChild(comment);
 
   // dejamos el área de texto en blanco
-  comTextArea.value = "";
+  // comTextArea.value = "";
 
   // agregamos la confesion a la lista
   let commList = document.getElementById("comments-list");
   commList.insertBefore(commContainer, commList.firstChild);
 };
-let submitConfBtn = document.getElementById("submit-comm-btn");
-submitConfBtn.addEventListener("click", agregarComentario);
+//let submitConfBtn = document.getElementById("submit-comm-btn");
+//submitConfBtn.addEventListener("click", agregarComentario);
+
+
+
 
 let foto = document.getElementById("img1");
 foto.style.width = "640px";
@@ -76,7 +82,7 @@ const changeImage = (img) => {
   if(img.style.width === "640px") {
     img.style.width = "850px";
   } else {
-    img.style.width= "640px";
+    img.style.width = "640px";
   }
 }
 

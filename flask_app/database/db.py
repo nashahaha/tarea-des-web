@@ -49,6 +49,12 @@ def create_file(ruta, nombre_arc, dispositivo_id):
 	cursor.execute(QUERY_DICT["create_file"], (ruta, nombre_arc, dispositivo_id))
 	conn.commit()
 
+def create_comment(nombre_com: str, comm: str, fecha: str, device_id: int):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["create_comment"], (nombre_com, comm, fecha, device_id))
+	conn.commit()
+
 def get_id_comuna_by_nombre(nombre_comuna): #no se usa
 	conn = get_conn()
 	cursor = conn.cursor()
@@ -97,3 +103,10 @@ def get_file_by_device_id(device_id: int):
 	cursor.execute(QUERY_DICT["get_files_from_device"], (device_id,))
 	file = cursor.fetchone()
 	return file
+
+def get_comments_by_device_id(device_id: int):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_comments_by_device_id"], (device_id,))
+	comm_list = cursor.fetchall()
+	return comm_list
