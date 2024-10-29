@@ -9,7 +9,7 @@
     "create_device": "INSERT INTO dispositivo (contacto_id, nombre, descripcion, tipo, anos_uso, estado) VALUES (%s, %s, %s, %s, %s, %s)",
     "get_device_by_id": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo WHERE id=%s",
     
-    "get_devices": "SELECT * FROM dispositivo ORDER BY id DESC LIMIT %s, 55",
+    "get_devices": "SELECT * FROM dispositivo ORDER BY id DESC LIMIT %s, 5",
     "get_next_devices": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo ORDER BY id DESC LIMIT 5, 5",
     "get_device_by_contacto_id": "SELECT nombre, descripcion, tipo, anos_uso, estado FROM dispositivo WHERE contacto_id=%s",
 

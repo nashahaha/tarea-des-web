@@ -22,10 +22,10 @@ def index():
 def agregarDonacion():
     return render_template("html/agregar-donacion.html")
 
-@app.route("/ver-dispositivos")
-def verDispositivos():
+@app.route("/ver-dispositivos/<page>", methods=["GET"])
+def verDispositivos(page):
     #obtener los datos de la db, elegir según que botón se presione
-    FIRST = 0
+    FIRST = (int(page)-1)*5
     data = []
     for device in db.get_dispositivos(FIRST):
         device_id, contacto_id, nombre_disp, _, tipo, _, estado = device
@@ -46,7 +46,7 @@ def verDispositivos():
             "pic_path": url_for('static', filename=ruta_arch)
         })
 
-    return render_template("html/ver-dispositivos.html", data=data)
+    return render_template("html/ver-dispositivos.html", data=data, page=page)
 
 @app.route("/informacion-dispositivo/<device_id>", methods=["GET"])
 def verInfoDispositivo(device_id):
