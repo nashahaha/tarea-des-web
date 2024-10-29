@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block css %}
+{% extends 'base.html' %} {% block title %} Ver dispositivos {% endblock %} {%
+block css %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/ver-dispositivos.css') }}"
@@ -17,9 +18,8 @@
   </thead>
   <tbody>
     {% if data %} {% for device in data %}
-    <!--quizá para redirigir puedo usar action en vez de data-href, no se si está permitido en las tablas-->
     <tr
-      data-contacto-id="{{device.contacto_id}}"
+      data-device-id="{{device.device_id}}"
       class="clickable-row"
       onclick="goToInfoDevice(this)"
       style="cursor: pointer"
@@ -29,68 +29,10 @@
       <td>{{ device.estado }}</td>
       <td>{{ device.comuna }}</td>
       <td>
-        <!--le quité el id a la imagen, no sé si lo necesito XD-->
-        <img class="imgs" src="" alt="placeholder image" />
+        <img class="imgs" src="{{device.pic_path}}" alt="placeholder image" />
       </td>
     </tr>
     {% endfor %} {% endif %}
-
-    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
-      <td>Tablet</td>
-      <td>ABC123</td>
-      <td>No funciona</td>
-      <td>Independencia</td>
-      <td>
-        <img
-          id="img2"
-          class="imgs"
-          src="https://upload.wikimedia.org/wikipedia/commons/7/74/2019_02_Microsoft_Surface_Pro_2017_with_signature_type_cover.jpg"
-          alt="placeholder image"
-        />
-      </td>
-    </tr>
-    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
-      <td>Teclado</td>
-      <td>UWU12345</td>
-      <td>No funciona</td>
-      <td>La pintana</td>
-      <td>
-        <img
-          id="img3"
-          class="imgs"
-          src="https://upload.wikimedia.org/wikipedia/commons/4/41/Apple-wireless-keyboard.jpg"
-          alt="placeholder image"
-        />
-      </td>
-    </tr>
-    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
-      <td>Teléfono</td>
-      <td>134340</td>
-      <td>Funciona a medias</td>
-      <td>Santiago</td>
-      <td>
-        <img
-          id="img4"
-          class="imgs"
-          src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Fire_Phone.jpg"
-          alt="placeholder image"
-        />
-      </td>
-    </tr>
-    <tr class="clickable-row" data-href="../html/informacion-dispositivo.html">
-      <td>Impresora</td>
-      <td>LOL42</td>
-      <td>Funciona</td>
-      <td>Santiago</td>
-      <td>
-        <img
-          id="img5"
-          class="imgs"
-          src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Samsung_ML-2010.jpg"
-          alt="placeholder image"
-        />
-      </td>
-    </tr>
   </tbody>
 </table>
 

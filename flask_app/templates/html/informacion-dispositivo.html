@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block css %}
+{% extends 'base.html' %} {% block title %} Informacion dipositivo {% endblock
+%} {% block css %}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='css/informacion-dispositivos.css') }}"
@@ -68,7 +69,7 @@
       <div class="data-container-e">
         <p class="data-label">Fotos del producto:</p>
         <p class="data-value">
-          <img id="img1" src="{{data.img_path}}" alt="placeholder image" />
+          <img id="img1" src="{{data.pic_path}}" alt="placeholder image" />
         </p>
       </div>
     </div>

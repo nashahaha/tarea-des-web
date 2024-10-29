@@ -1,7 +1,12 @@
 from flask import Flask, request, render_template, redirect, url_for, session
-from utils.validations import validate_user, validate_device
+from utils.validations import validate_user, validate_device, validate_file
 from database import db
 from datetime import datetime
+from werkzeug.utils import secure_filename
+import hashlib
+import os
+import filetype
+import uuid
 
 app = Flask(__name__)
 
@@ -23,33 +28,35 @@ def verDispositivos():
     FIRST = 0
     data = []
     for device in db.get_dispositivos(FIRST):
-        _, contacto_id, nombre_disp, _, tipo, _, estado = device
+        device_id, contacto_id, nombre_disp, _, tipo, _, estado = device
         _, _, _, _, comuna_id, _ = db.get_user_by_id(contacto_id)
 
-        comuna, region = db.get_region_comuna_by_id_comuna(comuna_id)
+        comuna, _ = db.get_region_comuna_by_id_comuna(comuna_id)
 
-        # OBTENER IMAGENES !!!!!!
+        _, nombre_arc = db.get_file_by_device_id(device_id)
+        ruta_arch = f"uploads/{nombre_arc}"
         
         data.append({
-            "contacto_id": contacto_id,
+            "device_id": device_id,
             "comuna": comuna, 
             "dispositivo": nombre_disp, 
             "tipo": tipo, 
-            "estado": estado 
+            "estado": estado,
+            "pic_path": url_for('static', filename=ruta_arch)
         })
 
     return render_template("html/ver-dispositivos.html", data=data)
 
-@app.route("/informacion-dispositivo/<contacto_id>", methods=["GET"])
-def verInfoDispositivo(contacto_id):
+@app.route("/informacion-dispositivo/<device_id>", methods=["GET"])
+def verInfoDispositivo(device_id):
     #obtenemos la info de la base de datos y mostramos
 
-    nombre_disp, descr, tipo, anhos_uso, estado = db.get_device_by_contacto_id(contacto_id)
+    _, contacto_id, nombre_disp, descr, tipo, anhos_uso, estado = db.get_device_by_id(device_id)
     _, nombre, email, celular, comuna_id, _ = db.get_user_by_id(contacto_id)
 
+    _, nombre_arc = db.get_file_by_device_id(device_id)
+    ruta_arch = f"uploads/{nombre_arc}"
     comuna, region = db.get_region_comuna_by_id_comuna(comuna_id)
-
-    # OBTENER IMAGENES !!!!!!
 
     data = {
         "nombre": nombre,
@@ -61,9 +68,10 @@ def verInfoDispositivo(contacto_id):
         "descr": descr,
         "tipo": tipo,
         "anhos": anhos_uso,
-        "estado": estado 
+        "estado": estado,
+        "pic_path": url_for('static', filename=ruta_arch)
     }
-    return render_template("html/informacion-dispositivo.html", data=data, contacto_id=contacto_id)
+    return render_template("html/informacion-dispositivo.html", data=data, device_id=device_id)
 
 @app.route("/confirmar", methods=["POST"])
 def confirmarForm():
@@ -76,27 +84,45 @@ def confirmarForm():
     device  = request.form.getlist("device-name")
     descrip = request.form.getlist("device-descr")
     tipo    = request.form.getlist("device-type")
-    anhos   = request.form.getlist("years-of-use") ##primero validar (como str), hacer strip() y luego pasar a int
+    anhos   = request.form.getlist("years-of-use")
     estado  = request.form.getlist("working-status")
-    fotos   = request.files.getlist("device-pics") #duda
+    fotos   = request.files.getlist('device-pics')
 
     if validate_user(name, email, phone, region, comuna):
         fecha_creacion = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        contacto_id = db.create_user(name.lower, email, phone, int(comuna), fecha_creacion)
+        contacto_id = db.create_user(name.lower(), email.lower(), phone, int(comuna), fecha_creacion)
     else: # para debugear
         error="Hay un error! (user)"
         print(error)
         return render_template("html/agregar-donacion.html",error=error)
     
+    
     for i in range(len(device)):
-        if validate_device(device[i], descrip[i], tipo[i], anhos[i], estado[i], fotos[i]):
-            db.create_device(contacto_id, device[i], descrip[i], tipo[i], anhos[i], estado[i])
+        if validate_device(device[i], descrip[i], tipo[i], anhos[i], estado[i], fotos):          
+            device_id = db.create_device(contacto_id, device[i], descrip[i], tipo[i], anhos[i], estado[i])
+            ## craer path para imagenes
+            for foto in fotos:
+                # 1. generate random name for img
+                _filename = hashlib.sha256(
+                    secure_filename(foto.filename).encode("utf-8")
+                    ).hexdigest()
+                _extension = filetype.guess(foto).extension
+                img_filename = f"{_filename}_{str(uuid.uuid4())}.{_extension}"
+
+                # 2. save img as a file
+                foto.save(os.path.join(app.config["UPLOAD_FOLDER"], img_filename))
+
+                ruta = os.path.join(UPLOAD_FOLDER, img_filename) 
+
+                db.create_file(ruta, img_filename, device_id)
+                
         else: #para debugear
             error="Hay un error! (device)"
             print(error)
             return render_template("html/agregar-donacion.html",error=error)
-    return render_template("html/agregar-donacion.html")
-
+    
+    success_message = "Hemos recibido la información de su donación. Muchas gracias."
+    return render_template("html/agregar-donacion.html", success_message=success_message)
 
 
 if __name__ == "__main__":

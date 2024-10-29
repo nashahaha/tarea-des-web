@@ -51,7 +51,7 @@ let cntLlamado = 1; // Contador de llamados
       });
 
     // Inserta el nodo clonado en el documento
-    let form = document.getElementById("form");
+    let form = document.getElementById("form-info");
     let addDeviceBtn = document.getElementById("add-device-btn")
     form.insertBefore(formClone, addDeviceBtn);
   };

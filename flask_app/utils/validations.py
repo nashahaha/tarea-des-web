@@ -7,18 +7,18 @@ def validate_name(name):
 
 def validate_email(email):
     valid_email = re.compile(r"^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$")
-    return email is not None and bool(valid_email.match(email)) and (email.count("@")==1)
+    return email is not None and bool(valid_email.match(email)) and (email.count("@")==1) and len(email)<=30
 
 def validate_phone(phone):
     valid_phone = re.compile(r"^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$")
-    return bool(valid_phone.match(phone)) or phone==""
+    return bool(valid_phone.match(phone)) or phone is None
 
 ## HAY UN ERROR CUNDO NO SE ENTREGA EL NÚMERO DE TELÉFONO
 def validate_device_name(device):
     return device is not None and len(device)>=3 and len(device)<=80
 
 def validate_description(description):
-    return description<=500
+    return len(description)<=500
 
 def validate_years(years):
     years = years.strip()
@@ -57,7 +57,7 @@ def validate_device(device, description, type, years, status, pics):
     for pic in pics:
         if not validate_file(pic):
             return False
-    return validate_device(device) and validate_description(description) and validate_select(type) and validate_years(years) and validate_select(status)
+    return validate_device_name(device) and validate_description(description) and validate_select(type) and validate_years(years) and validate_select(status)
 
 #print("nombre:", validate_name("  a ")== False)
 #print("email:", validate_email("ignacia@galaz@alvarado.com")==False)

@@ -7,7 +7,7 @@ const validarNombre=(nombre) =>{
 // VALIDADOR EMAIL
 const validarEmail=(mail) =>{            
     var validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-    return validEmail.test(mail) && mail && (mail.split('@').length - 1) === 1; // prueba que exista, tenga solo un @ y formato de mail
+    return validEmail.test(mail) && mail && (mail.split('@').length - 1) === 1 && mail.length<=30; // prueba que exista, tenga solo un @ y formato de mail
 } 
 
 //VALIDADOR NUMERO DE TELEFONO
@@ -198,26 +198,26 @@ const validarForm = () => {
 
     // Mensaje de confirmación
     let myForm = document.forms["form"];
-    let volverIndex = document.getElementById("return-to-home");
+    let formInfo = document.getElementById("form-info")
+    
     let confirmationBox = document.getElementById("confirmation-box");
     if (isFormValid){
         // Ocultar el formulario
-        myForm.style.display = "none";
+        formInfo.style.display = "none";
         
         // Si precionamos botón para enviar
         let submitButton = document.getElementById("submit-btn");
         submitButton.addEventListener("click", () => {
-        // myForm.submit();
-        // no tenemos un backend al cual enviarle los datos
-        confirmationBox.style.display = "none";
-        volverIndex.hidden = false;
+            confirmationBox.style.display = "none";
+            formInfo.style.display = "none";
+            
         });
 
         // Si queremos volver al formulario
         let backButton = document.getElementById("back-btn");
         backButton.addEventListener("click", () => {
         // Mostrar el formulario nuevamente
-        myForm.style.display = "block";
+        formInfo.style.display = "block";
         confirmationBox.hidden = true;
         });
 

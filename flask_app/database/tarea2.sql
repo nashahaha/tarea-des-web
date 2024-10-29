@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `tarea2`.`dispositivo` (
   `contacto_id` INT NOT NULL,
   `nombre` VARCHAR(80) NOT NULL,
   `descripcion` VARCHAR(300) NULL,
-  `tipo` ENUM("pantalla", "notebook", "tablet", "celular", "consola", "mouse", "teclado", "impresora", "parlante", "audífonos", "otro") NOT NULL,
+  `tipo` ENUM("pantalla", "notebook", "tablet", "celular", "consola", "mouse", "teclado", "impresora", "parlante", "audifonos", "otro") NOT NULL,
   `anos_uso` INT NOT NULL,
   `estado` ENUM("funciona perfecto", "funciona a medias", "no funciona") NOT NULL,
   PRIMARY KEY (`id`),

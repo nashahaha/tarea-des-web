@@ -7,14 +7,14 @@
     "get_region_comuna_by_id_comuna": "SELECT comuna.nombre AS comuna_nombre, region.nombre AS region_nombre FROM tarea2.comuna JOIN tarea2.region ON comuna.region_id = region.id WHERE comuna.id = %s",
 
     "create_device": "INSERT INTO dispositivo (contacto_id, nombre, descripcion, tipo, anos_uso, estado) VALUES (%s, %s, %s, %s, %s, %s)",
-    "get_device_by_id": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo WHERE contacto_id=?",
+    "get_device_by_id": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo WHERE id=%s",
     
-    "get_devices": "SELECT * FROM dispositivo ORDER BY id DESC LIMIT %s, 5",
+    "get_devices": "SELECT * FROM dispositivo ORDER BY id DESC LIMIT %s, 55",
     "get_next_devices": "SELECT id, contacto_id, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo ORDER BY id DESC LIMIT 5, 5",
     "get_device_by_contacto_id": "SELECT nombre, descripcion, tipo, anos_uso, estado FROM dispositivo WHERE contacto_id=%s",
 
     "get_devices_comuna": "SELECT id, contacto_id, COM.nombre, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo, contacto CO, comuna COM WHERE contacto_id=CO.id AND CO.comuna_id=COM.id ORDER BY id DESC LIMIT 5, 5",
     
-    "create_file": "INSERT INTO archivo (ruta_archivo, nombre_archivo, dispositivo_id) VALUES (?,?,?)",
-    "get_files_from_device": "SELECT id, ruta_archivo, nombre_archivo FROM archivo WHERE dispositivo_id=?"
+    "create_file": "INSERT INTO archivo (ruta_archivo, nombre_archivo, dispositivo_id) VALUES (%s,%s,%s)",
+    "get_files_from_device": "SELECT ruta_archivo, nombre_archivo FROM archivo WHERE dispositivo_id=%s"
 }
