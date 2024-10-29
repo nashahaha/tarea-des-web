@@ -1,4 +1,4 @@
-//---------------Crear caja para nuevos dispositivos------------------
+//---------------Crear bloque para nuevos dispositivos------------------
 
 let cntLlamado = 1; // Contador de llamados
 
@@ -14,6 +14,9 @@ let cntLlamado = 1; // Contador de llamados
     // Cambia el número de dispositivo en el subtítulo
     let bajada = formClone.querySelector("#dispositivo");
     bajada.textContent = "Información del dispositivo " + cntLlamado.toString() + ":";
+
+    let archivo = formClone.querySelector("#device-pics");
+    archivo.name = "device-pics-" + cntLlamado.toString();
 
     // Selecciona todos los elementos dentro del clon que tengan un id, nombre y error
     let elementsWithId = formClone.querySelectorAll("[id]");

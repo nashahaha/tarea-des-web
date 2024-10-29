@@ -16,5 +16,5 @@
     "get_devices_comuna": "SELECT id, contacto_id, COM.nombre, nombre, descripcion, tipo, anos_uso, estado FROM dispositivo, contacto CO, comuna COM WHERE contacto_id=CO.id AND CO.comuna_id=COM.id ORDER BY id DESC LIMIT 5, 5",
     
     "create_file": "INSERT INTO archivo (ruta_archivo, nombre_archivo, dispositivo_id) VALUES (%s,%s,%s)",
-    "get_files_from_device": "SELECT ruta_archivo, nombre_archivo FROM archivo WHERE dispositivo_id=%s"
+    "get_files_from_device": "SELECT nombre_archivo FROM archivo WHERE dispositivo_id=%s"
 }

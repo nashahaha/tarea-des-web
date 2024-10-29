@@ -33,7 +33,8 @@ def verDispositivos():
 
         comuna, _ = db.get_region_comuna_by_id_comuna(comuna_id)
 
-        _, nombre_arc = db.get_file_by_device_id(device_id)
+        nombre_arc, = db.get_file_by_device_id(device_id)
+        print("ver dipositivos:", device_id, "-", nombre_arc)
         ruta_arch = f"uploads/{nombre_arc}"
         
         data.append({
@@ -54,7 +55,7 @@ def verInfoDispositivo(device_id):
     _, contacto_id, nombre_disp, descr, tipo, anhos_uso, estado = db.get_device_by_id(device_id)
     _, nombre, email, celular, comuna_id, _ = db.get_user_by_id(contacto_id)
 
-    _, nombre_arc = db.get_file_by_device_id(device_id)
+    nombre_arc, = db.get_file_by_device_id(device_id)
     ruta_arch = f"uploads/{nombre_arc}"
     comuna, region = db.get_region_comuna_by_id_comuna(comuna_id)
 
@@ -75,18 +76,12 @@ def verInfoDispositivo(device_id):
 
 @app.route("/confirmar", methods=["POST"])
 def confirmarForm():
+    # VALIDAR USER
     name   = request.form.get("username")
     email  = request.form.get("email")
     phone  = request.form.get("phone-number")
     region = request.form.get("select-region")
     comuna = request.form.get("select-comuna")
-
-    device  = request.form.getlist("device-name")
-    descrip = request.form.getlist("device-descr")
-    tipo    = request.form.getlist("device-type")
-    anhos   = request.form.getlist("years-of-use")
-    estado  = request.form.getlist("working-status")
-    fotos   = request.files.getlist('device-pics')
 
     if validate_user(name, email, phone, region, comuna):
         fecha_creacion = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
@@ -96,10 +91,20 @@ def confirmarForm():
         print(error)
         return render_template("html/agregar-donacion.html",error=error)
     
+    # VALIDAR CADA DISPOSITIVO
+    device  = request.form.getlist("device-name") #lista con los nombres de cada dispositivo
+    descrip = request.form.getlist("device-descr")
+    tipo    = request.form.getlist("device-type")
+    anhos   = request.form.getlist("years-of-use")
+    estado  = request.form.getlist("working-status")
     
     for i in range(len(device)):
+        input_name = 'device-pics-' + str(i+1)
+        fotos   = request.files.getlist(input_name) #retorna una lista de FileStorage
+
         if validate_device(device[i], descrip[i], tipo[i], anhos[i], estado[i], fotos):          
-            device_id = db.create_device(contacto_id, device[i], descrip[i], tipo[i], anhos[i], estado[i])
+            device_id = db.create_device(contacto_id, device[i], descrip[i], tipo[i], anhos[i], estado[i]) ##SE DUPLICA
+            
             ## craer path para imagenes
             for foto in fotos:
                 # 1. generate random name for img
