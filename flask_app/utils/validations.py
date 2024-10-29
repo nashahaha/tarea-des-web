@@ -11,7 +11,7 @@ def validate_email(email):
 
 def validate_phone(phone):
     valid_phone = re.compile(r"^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$")
-    return bool(valid_phone.match(phone)) or phone is None
+    return bool(valid_phone.match(phone)) or phone==""
 
 ## HAY UN ERROR CUNDO NO SE ENTREGA EL NÚMERO DE TELÉFONO
 def validate_device_name(device):
