@@ -22,6 +22,62 @@ def index():
 def agregarDonacion():
     return render_template("html/agregar-donacion.html")
 
+@app.route("/confirmar", methods=["POST"])
+def confirmarForm():
+    # VALIDAR USER
+    name   = request.form.get("username")
+    email  = request.form.get("email")
+    phone  = request.form.get("phone-number")
+    region = request.form.get("select-region")
+    comuna = request.form.get("select-comuna")
+
+    if validate_user(name, email, phone, region, comuna):
+        fecha_creacion = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        contacto_id = db.create_user(name.lower(), email.lower(), phone, int(comuna), fecha_creacion)
+    else: # para debugear
+        error="Hay un error! (user)"
+        print(error)
+        return render_template("html/agregar-donacion.html",error=error)
+    
+    # VALIDAR CADA DISPOSITIVO
+    device  = request.form.getlist("device-name") #lista con los nombres de cada dispositivo
+    descrip = request.form.getlist("device-descr")
+    tipo    = request.form.getlist("device-type")
+    anhos   = request.form.getlist("years-of-use")
+    estado  = request.form.getlist("working-status")
+    
+    for i in range(len(device)):
+        input_name = 'device-pics-' + str(i+1)
+        fotos   = request.files.getlist(input_name) #retorna una lista de FileStorage
+
+        if validate_device(device[i], descrip[i], tipo[i], anhos[i], estado[i], fotos):          
+            device_id = db.create_device(contacto_id, device[i], descrip[i], tipo[i], anhos[i], estado[i]) ##SE DUPLICA
+            
+            ## craer path para imagenes
+            for foto in fotos:
+                # 1. generate random name for img
+                _filename = hashlib.sha256(
+                    secure_filename(foto.filename).encode("utf-8")
+                    ).hexdigest()
+                _extension = filetype.guess(foto).extension
+                img_filename = f"{_filename}_{str(uuid.uuid4())}.{_extension}"
+
+                # 2. save img as a file
+                foto.save(os.path.join(app.config["UPLOAD_FOLDER"], img_filename))
+
+                ruta = os.path.join(UPLOAD_FOLDER, img_filename) 
+
+                db.create_file(ruta, img_filename, device_id)
+                
+        else: #para debugear
+            error="Se produjo un error al subir los archivos, vuelva a intentarlo."
+            print(error)
+            return render_template("html/agregar-donacion.html",error=error)
+    
+    success_message = "Hemos recibido la información de su donación. Muchas gracias."
+    return render_template("html/agregar-donacion.html", success_message=success_message)
+
+
 @app.route("/ver-dispositivos/<page>", methods=["GET"])
 def verDispositivos(page):
     #obtener los datos de la db, elegir según que botón se presione
@@ -73,62 +129,6 @@ def verInfoDispositivo(device_id):
         "pic_path": url_for('static', filename=ruta_arch)
     }
     return render_template("html/informacion-dispositivo.html", data=data, device_id=device_id)
-
-@app.route("/confirmar", methods=["POST"])
-def confirmarForm():
-    # VALIDAR USER
-    name   = request.form.get("username")
-    email  = request.form.get("email")
-    phone  = request.form.get("phone-number")
-    region = request.form.get("select-region")
-    comuna = request.form.get("select-comuna")
-
-    if validate_user(name, email, phone, region, comuna):
-        fecha_creacion = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        contacto_id = db.create_user(name.lower(), email.lower(), phone, int(comuna), fecha_creacion)
-    else: # para debugear
-        error="Hay un error! (user)"
-        print(error)
-        return render_template("html/agregar-donacion.html",error=error)
-    
-    # VALIDAR CADA DISPOSITIVO
-    device  = request.form.getlist("device-name") #lista con los nombres de cada dispositivo
-    descrip = request.form.getlist("device-descr")
-    tipo    = request.form.getlist("device-type")
-    anhos   = request.form.getlist("years-of-use")
-    estado  = request.form.getlist("working-status")
-    
-    for i in range(len(device)):
-        input_name = 'device-pics-' + str(i+1)
-        fotos   = request.files.getlist(input_name) #retorna una lista de FileStorage
-
-        if validate_device(device[i], descrip[i], tipo[i], anhos[i], estado[i], fotos):          
-            device_id = db.create_device(contacto_id, device[i], descrip[i], tipo[i], anhos[i], estado[i]) ##SE DUPLICA
-            
-            ## craer path para imagenes
-            for foto in fotos:
-                # 1. generate random name for img
-                _filename = hashlib.sha256(
-                    secure_filename(foto.filename).encode("utf-8")
-                    ).hexdigest()
-                _extension = filetype.guess(foto).extension
-                img_filename = f"{_filename}_{str(uuid.uuid4())}.{_extension}"
-
-                # 2. save img as a file
-                foto.save(os.path.join(app.config["UPLOAD_FOLDER"], img_filename))
-
-                ruta = os.path.join(UPLOAD_FOLDER, img_filename) 
-
-                db.create_file(ruta, img_filename, device_id)
-                
-        else: #para debugear
-            error="Hay un error! (device)"
-            print(error)
-            return render_template("html/agregar-donacion.html",error=error)
-    
-    success_message = "Hemos recibido la información de su donación. Muchas gracias."
-    return render_template("html/agregar-donacion.html", success_message=success_message)
-
 
 if __name__ == "__main__":
     app.run(debug=True)

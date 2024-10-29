@@ -196,29 +196,22 @@ const validarForm = () => {
         }
     });
 
-    // Mensaje de confirmación
-    let myForm = document.forms["form"];
-    let formInfo = document.getElementById("form-info")
-    
-    let confirmationBox = document.getElementById("confirmation-box");
+    // MENSAJE DE CONFIRMACIÓN
+    let formInfo = document.getElementById("form-info"); //bloque con el form
+    let confirmationBox = document.getElementById("confirmation-box"); //bloque con mesjae de confirmación
+    let form = document.getElementById("form");
+
     if (isFormValid){
         // Ocultar el formulario
         formInfo.style.display = "none";
-        
-        // Si precionamos botón para enviar
-        let submitButton = document.getElementById("submit-btn");
-        submitButton.addEventListener("click", () => {
-            confirmationBox.style.display = "none";
-            formInfo.style.display = "none";
-            
-        });
 
-        // Si queremos volver al formulario
+        // Si precionamos confirmar se encarga app.py
+
+        // Si queremos volver al formulario en lugar de confirmar
         let backButton = document.getElementById("back-btn");
         backButton.addEventListener("click", () => {
-        // Mostrar el formulario nuevamente
-        formInfo.style.display = "block";
-        confirmationBox.hidden = true;
+        formInfo.style.display = "block"; // Mostrar el formulario nuevamente
+        confirmationBox.hidden = true; // Ocultar el mensaje de confirmación
         });
 
         // hacer visible el mensaje de validación

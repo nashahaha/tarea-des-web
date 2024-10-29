@@ -15,8 +15,7 @@ block css %}
   <p>{{ success_message }}</p>
   <a href="{{ url_for('index') }}">Volver al inicio</a>
 </div>
-{% endif %}
-
+{% endif %} {% if not success_message %}
 <!--FORM-->
 <form
   class="formulario"
@@ -38,6 +37,8 @@ block css %}
       </button>
     </div>
   </div>
+
+  <!--FORM-->
   <div id="form-info">
     <!--INFO DE CONTACTO-->
     <h2 class="bajada">Ingrese sus datos para realizar su donación</h2>
@@ -200,8 +201,7 @@ block css %}
     </div>
   </div>
 </form>
-
-{% endblock content %} {% block javascript %}
+{% endif %} {% endblock content %} {% block javascript %}
 <script src="{{ url_for('static', filename='js/validacion-agreg-don.js') }}"></script>
 <script src="{{ url_for('static', filename='js/select_region.js') }}"></script>
 <script src="{{ url_for('static', filename='js/agregar-dispositivo.js') }}"></script>

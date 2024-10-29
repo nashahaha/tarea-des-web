@@ -7,6 +7,11 @@ html {
     margin: 0 auto;
 }
 
+#error-message {
+    color: darkred;
+    font-weight: bold;
+}
+
 /* CONTIRMATION STUFF*/
 .confirmation-box {
     margin-top: 150px;
@@ -34,6 +39,7 @@ html {
 /* RETURN HOME STUFF */
 .return-to-home {
     text-align: center;
+    margin-top: 150px;
 }
 
 .return-to-home p {
