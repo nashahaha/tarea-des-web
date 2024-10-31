@@ -172,10 +172,22 @@ def get_graph_comunas():
     print(dev_by_com_data)
     return jsonify(dev_by_com_data)
 
-@app.route("/grafico-disp", methods=["GET"])
-@cross_origin(origin="127.0.0.1", supports_credentials=True)
-def graph_devices():
+@app.route("/grafico-tipo-disp", methods=["GET"])
+def graph_type_devices():
     return render_template("graficos/grafico-disp.html")
+
+@app.route("/get-grafico-tipo-disp")
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def get_graph_type_devices():
+    tipos = ["pantalla", "notebook", "tablet", "celular", "consola", "mouse", "teclado", "impresora", "parlante", "audifonos", "otro"]
+    data = []
+    for tipo in tipos:
+        num_disp = db.count_devices_by_type(tipo)
+        data.append({
+            "tipo": tipo,
+            "num_disp": num_disp
+        })
+    return jsonify(data)
 
 
 if __name__ == "__main__":

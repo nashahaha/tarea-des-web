@@ -22,9 +22,10 @@ Highcharts.chart('container', {
             }
         }
     },
-    series: [{
-        data: [] // Replace with your actual data
-    }]
+    series: [{ 
+        data: [], // Replace with your actual data
+        showInLegend: false
+    }] //agregar más {} por cada serie
 });
 
 fetch("http://127.0.0.1:5000/get-grafico-comunas")
@@ -32,7 +33,7 @@ fetch("http://127.0.0.1:5000/get-grafico-comunas")
 .then((data) => {
     const categories = data.map(item => item.comuna);  // x-axis labels
     const seriesData = data.map(item => item.num_disp); // y-axis data
-    print(seriesData)
+    
     // Get the chart by ID
     const chart = Highcharts.charts.find(
         (chart) => chart && chart.renderTo.id === "container"

@@ -131,3 +131,10 @@ def get_nombre_comuna(comuna_id):
 	cursor.execute(QUERY_DICT["get_nombre_comuna"], (comuna_id,))
 	nom_comuna, = cursor.fetchone()
 	return nom_comuna
+
+def count_devices_by_type(tipo):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["count_devices_by_type"], (tipo,))
+	devices_num, = cursor.fetchone()
+	return devices_num
