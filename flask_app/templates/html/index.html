@@ -19,9 +19,28 @@
   <img
     class="btn-icons"
     src="https://static.vecteezy.com/system/resources/previews/005/242/944/original/phone-icon-telephone-icon-symbol-in-hand-for-app-and-messenger-free-vector.jpg"
-    alt="devices-logo"
+    alt="devices-icon"
   />
   Ver dispositivos
+</a>
+
+<a class="option-box" href="{{ url_for('graph_comunas') }}">
+  <img
+    id="map-icon"
+    class="btn-icons"
+    src="{{url_for('static', filename='Images/map-icon.png')}}"
+    alt="map-icon"
+  />
+  Gráfico contactos por comuna
+</a>
+
+<a class="option-box" href="{{ url_for('graph_devices') }}">
+  <img
+    class="btn-icons"
+    src="{{url_for('static', filename='Images/graphs-icon.png')}}"
+    alt="devices-graph-icon"
+  />
+  Gráfico tipo de dispositivos
 </a>
 
 {% endblock content %} {% block javascript %} {% endblock %}

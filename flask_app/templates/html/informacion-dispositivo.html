@@ -103,6 +103,7 @@
       ></textarea>
       <br />
       <button id="submit-comm-btn" type="submit">Agregar comentario</button>
+
       <p id="error" hidden>Error en el comentario</p>
       <p id="sended" hidden>Se agregó el comentario</p>
     </form>
@@ -121,6 +122,6 @@
   </div>
 
   {% endblock content %} {% block javascript %}
-  <script src="../js/info-del-dispositivo.js"></script>
+  <script src="{{ url_for('static', filename='js/info-del-dispositivo.js') }}"></script>
   {% endblock %}
 </div>

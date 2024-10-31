@@ -59,7 +59,8 @@ def validate_device(device, description, type, years, status, pics):
     return validate_device_name(device) and validate_description(description) and validate_select(type) and validate_years(years) and validate_select(status)
 
 def validate_comment(comm: str):
-    return True
+    print("tipo:" ,type(comm))
+    return len(comm.strip())>=5
 
 #print("nombre:", validate_name("  a ")== False)
 #print("email:", validate_email("ignacia@galaz@alvarado.com")==False)

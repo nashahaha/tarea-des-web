@@ -110,3 +110,24 @@ def get_comments_by_device_id(device_id: int):
 	cursor.execute(QUERY_DICT["get_comments_by_device_id"], (device_id,))
 	comm_list = cursor.fetchall()
 	return comm_list
+
+def get_comunas_id():
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute("SELECT id FROM comuna;")
+	comunas_list = cursor.fetchall()
+	return comunas_list
+
+def count_devices_by_comuna(comuna_id):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["count_devices_by_comuna"], (comuna_id,))
+	devices_num = cursor.fetchone()
+	return devices_num
+
+def get_nombre_comuna(comuna_id):
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute(QUERY_DICT["get_nombre_comuna"], (comuna_id,))
+	nom_comuna, = cursor.fetchone()
+	return nom_comuna

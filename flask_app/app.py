@@ -1,4 +1,5 @@
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, jsonify
+from flask_cors import cross_origin
 from utils.validations import validate_user, validate_device, validate_comment, validate_name
 from database import db
 from datetime import datetime
@@ -139,7 +140,7 @@ def verInfoDispositivo(device_id):
         })
     return render_template("html/informacion-dispositivo.html", data=data, device_id=device_id, comments_list=comments_list)
 
-@app.route("/add_comment/<device_id>", methods=["POST"])
+@app.route("/add-comment/<device_id>", methods=["POST"])
 def add_comment(device_id):
     name = request.form.get("comm-author")
     comm = request.form.get("comm-text-area")
@@ -147,8 +148,35 @@ def add_comment(device_id):
 
     if validate_comment(comm) and validate_name(name):
         db.create_comment(name, comm, fecha, device_id)
-    
+        
     return redirect(url_for("verInfoDispositivo", device_id=device_id))
+
+@app.route("/grafico-comunas", methods=["GET"])
+def graph_comunas():
+    return render_template("graficos/grafico-comunas.html")
+
+@app.route("/get-grafico-comunas", methods=["GET"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def get_graph_comunas():
+    comunas_id = db.get_comunas_id()
+    
+    dev_by_com_data = []
+    for comuna_id in comunas_id:
+        num_disp, = db.count_devices_by_comuna(comuna_id)
+        if num_disp > 0:
+            dev_by_com_data += [{
+                "comuna": db.get_nombre_comuna(comuna_id),
+                "num_disp": num_disp
+            }]
+    #print("DATOS GRAFICO COMUNAS")
+    print(dev_by_com_data)
+    return jsonify(dev_by_com_data)
+
+@app.route("/grafico-disp", methods=["GET"])
+@cross_origin(origin="127.0.0.1", supports_credentials=True)
+def graph_devices():
+    return render_template("graficos/grafico-disp.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

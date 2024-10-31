@@ -19,5 +19,8 @@
     "get_files_from_device": "SELECT nombre_archivo FROM archivo WHERE dispositivo_id=%s",
 
     "create_comment": "INSERT INTO comentario (nombre, texto, fecha, dispositivo_id) VALUES (%s, %s, %s, %s)",
-    "get_comments_by_device_id": "SELECT nombre, texto, fecha FROM comentario WHERE dispositivo_id=%s"
+    "get_comments_by_device_id": "SELECT nombre, texto, fecha FROM comentario WHERE dispositivo_id=%s",
+
+    "count_devices_by_comuna": "SELECT COUNT(d.id) AS device_count FROM dispositivo d JOIN contacto c ON d.contacto_id = c.id JOIN comuna co ON c.comuna_id = co.id WHERE co.id = %s;",
+    "get_nombre_comuna": "SELECT nombre FROM comuna WHERE id=%s"
 }
