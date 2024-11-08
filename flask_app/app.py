@@ -8,6 +8,7 @@ import hashlib
 import os
 import filetype
 import uuid
+import math
 
 app = Flask(__name__)
 
@@ -82,6 +83,7 @@ def confirmarForm():
 @app.route("/ver-dispositivos/<page>", methods=["GET"])
 def verDispositivos(page):
     #obtener los datos de la db, elegir según que botón se presione
+    TOTAL_PAGES = math.ceil(db.count_dev_data()/5)
     FIRST = (int(page)-1)*5
     data = []
     for device in db.get_dispositivos(FIRST):
@@ -103,7 +105,7 @@ def verDispositivos(page):
             "pic_path": url_for('static', filename=ruta_arch)
         })
 
-    return render_template("html/ver-dispositivos.html", data=data, page=page)
+    return render_template("html/ver-dispositivos.html", data=data, page=int(page), maxPage=TOTAL_PAGES)
 
 @app.route("/informacion-dispositivo/<device_id>", methods=["GET"])
 def verInfoDispositivo(device_id):

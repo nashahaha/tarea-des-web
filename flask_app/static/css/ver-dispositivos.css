@@ -45,15 +45,29 @@ html {
   }
 
   .pagination {
-    display: inline-block;
-    margin-bottom: 10px;
-    text-align: center;
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    list-style-type: none;
   }
-  
+
+  /* Style for pagination items */
+  .pagination li {
+    margin: 0 5px;
+  }
+
+  /* Style for pagination links */
   .pagination a {
-    color: black;
-    padding: 8px 16px;
-    text-decoration: none;
     display: inline-block;
+    padding: 8px 12px;
+    color: #0c3302;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  /* Hover effect */
+  .pagination a:hover {
+    background-color: #ddd;
+    color: #007bff;
   }

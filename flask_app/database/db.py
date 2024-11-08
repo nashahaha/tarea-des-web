@@ -138,3 +138,12 @@ def count_devices_by_type(tipo):
 	cursor.execute(QUERY_DICT["count_devices_by_type"], (tipo,))
 	devices_num, = cursor.fetchone()
 	return devices_num
+
+def count_dev_data():
+	conn = get_conn()
+	cursor = conn.cursor()
+	cursor.execute("SELECT COUNT(*) AS total_rows FROM dispositivo;")
+	devices, = cursor.fetchone()
+	return devices
+
+print(count_dev_data())

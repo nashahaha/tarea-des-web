@@ -37,18 +37,18 @@ submitCommBtn.addEventListener("click", agregarComentario);
 
 
 
-
-//let foto = document.getElementById("img1");
-//foto.style.width = "640px";
-//foto.style.height = "auto";
+let foto = document.getElementById("img-dev");
+foto.style.width = "640px";
+foto.style.height = "auto";
 
 // Cambia el tamaño de la imagen
-//const changeImage = (img) => {
-//  if(img.style.width === "640px") {
-//    img.style.width = "850px";
-//  } else {
-//    img.style.width = "640px";
-//  }
-//}
+const changeImage = (img) => {
+  
+  if(img.style.width === "640px") {
+    img.style.width = "850px";
+  } else {
+    img.style.width = "640px";
+  }
+}
 
 foto.addEventListener("click", () => changeImage(foto))

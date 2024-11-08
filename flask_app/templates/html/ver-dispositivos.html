@@ -36,13 +36,21 @@ block css %}
   </tbody>
 </table>
 
-<div class="pagination">
-  <a href="#">&laquo;</a>
-  <a href="/ver-dispositivos/1">1</a>
-  <a href="/ver-dispositivos/2">2</a>
-  <a href="/ver-dispositivos/3">3</a>
-  <a href="/ver-dispositivos/4">4</a>
-  <a href="#">&raquo;</a>
+<div class="pagination-cont">
+  <ul class="pagination" id="pagination">
+    {% if page!=1 %}
+    <li>
+      <a href="{{ url_for('verDispositivos', page=page-1) }}">&laquo</a>
+    </li>
+    {% endif %} {% for num in range(page-2, page+3) %} {% if num > 0 and num <=
+    maxPage %}
+    <li><a href="{{ url_for('verDispositivos', page=num) }}">{{ num }}</a></li>
+    {% endif %} {% endfor %} {% if page < maxPage %}
+    <li>
+      <a href="{{ url_for('verDispositivos', page=page+1) }}">&raquo</a>
+    </li>
+    {% endif %}
+  </ul>
 </div>
 
 {% endblock content %} {% block javascript %}
