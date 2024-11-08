@@ -1,7 +1,11 @@
-//const comTextArea = document.getElementById("comm-text-area");
 
-const validarComentario = (comentario) => 
-  comentario && comentario.length<=2000 && comentario.length>=5
+const validarComentario = (comentario) => {
+  if (!comentario) return false; // Check if comentario is falsy
+  const trimmedComentario = comentario.trim();
+  const length = trimmedComentario.length;
+  
+  return length >= 5 && length < 300;
+};
 
 const validarNombre=(nombre) =>
   {
@@ -12,15 +16,16 @@ const validarNombre=(nombre) =>
 const agregarComentario = () => {
   //OBTIENE EL INPUT
   let comTextArea = document.getElementById("comm-text-area")
-  let commText = comTextArea.value;
   let name = document.getElementById("comm-author");
-
+  console.log(comTextArea);
+  console.log(name)
   let error = document.getElementById("error");
   let sended = document.getElementById("sended");
-  
+  error.hidden = true;
+  sended.hidden = true;
 
   // VALIDA INPUT
-  let isValid = validarComentario(commText) && validarNombre(name.value);
+  let isValid = validarComentario(comTextArea.value) && validarNombre(name.value);
   if (!isValid) {
     error.style.color = 'red';
     error.hidden = false;
@@ -38,16 +43,16 @@ submitCommBtn.addEventListener("click", agregarComentario);
 
 
 let foto = document.getElementById("img-dev");
-foto.style.width = "640px";
+foto.style.width = "560px";
 foto.style.height = "auto";
 
 // Cambia el tamaño de la imagen
 const changeImage = (img) => {
   
-  if(img.style.width === "640px") {
+  if(img.style.width === "560px") {
     img.style.width = "850px";
   } else {
-    img.style.width = "640px";
+    img.style.width = "560px";
   }
 }
 

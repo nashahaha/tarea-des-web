@@ -6,14 +6,6 @@
 
 - Se cae la página cuando se intentan subir SVG's, debería simplemente tirar un error y seguir pidiendo los datos.
 
-- El tamaño de las imagenes se modifica por medio de funciones, esto es muy ineficiente y seguramente está causando que la página se haga más lenta.
+### Gráfico número de dispositivos registrados por comuna
 
-### Entrega Tarea 3:
-
-- Falta la validación de los contarios en el front-end.
-
-- Falta la valicación de los comentarios en el back-end.
-
-- Al agregar comentarios se recarga la pestaña, la idea es que se muestre sin la necesidad de recargar.
-
-- La paginación está limitada a 4 pestañas. Se logra mostrar los datos a partir de la ruta, pero no se puede llagar a estos datos.
+Este gráfico tarda un par de segundos en mostrarse, esto es porque las constultas en Mysql no son eficientes por la manera en que están indexadas las tablas. Una forma de solucionar este problema sería agregando una columna `número de dispositivos` a la tabla `comuna` que se actualice cada vez que se registra un dispositivo, de esta manera no sería necesario contar dispositivos por cada comuna por lo que se ahorraría tiempo. Por temas de tiempo no se implementó esta mejora.

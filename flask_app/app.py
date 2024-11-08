@@ -93,7 +93,6 @@ def verDispositivos(page):
         comuna, _ = db.get_region_comuna_by_id_comuna(comuna_id)
 
         nombre_arc, = db.get_file_by_device_id(device_id)
-        print("ver dipositivos:", device_id, "-", nombre_arc)
         ruta_arch = f"uploads/{nombre_arc}"
         
         data.append({
@@ -109,7 +108,6 @@ def verDispositivos(page):
 
 @app.route("/informacion-dispositivo/<device_id>", methods=["GET"])
 def verInfoDispositivo(device_id):
-    #obtenemos la info de la base de datos y mostramos
     _, contacto_id, nombre_disp, descr, tipo, anhos_uso, estado = db.get_device_by_id(device_id)
     _, nombre, email, celular, comuna_id, _ = db.get_user_by_id(contacto_id)
 
@@ -135,7 +133,7 @@ def verInfoDispositivo(device_id):
     comments_list = []
     for comment in comm_list:
         comm_nombre, comm_text, comm_fecha = comment
-        comments_list.append( {
+        comments_list.insert(0, {
             "nombre": comm_nombre,
             "fecha": comm_fecha,
             "text": comm_text
@@ -147,11 +145,12 @@ def add_comment(device_id):
     name = request.form.get("comm-author")
     comm = request.form.get("comm-text-area")
     fecha = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-
+    
     if validate_comment(comm) and validate_name(name):
         db.create_comment(name, comm, fecha, device_id)
-        
+    
     return redirect(url_for("verInfoDispositivo", device_id=device_id))
+    
 
 @app.route("/grafico-comunas", methods=["GET"])
 def graph_comunas():
@@ -170,8 +169,6 @@ def get_graph_comunas():
                 "comuna": db.get_nombre_comuna(comuna_id),
                 "num_disp": num_disp
             }]
-    #print("DATOS GRAFICO COMUNAS")
-    print(dev_by_com_data)
     return jsonify(dev_by_com_data)
 
 @app.route("/grafico-tipo-disp", methods=["GET"])

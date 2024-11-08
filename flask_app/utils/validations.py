@@ -38,8 +38,9 @@ def validate_file(file):
     
     # check file extension
     ftype_guess = filetype.guess(file)
-    if ftype_guess.extension not in ALLOWED_EXTENSIONS:
+    if ftype_guess is None or ftype_guess.extension not in ALLOWED_EXTENSIONS:
         return False
+    
     # check mimetype
     if ftype_guess.mime not in ALLOWED_MIMETYPES:
         return False
@@ -58,9 +59,8 @@ def validate_device(device, description, type, years, status, pics):
             return False
     return validate_device_name(device) and validate_description(description) and validate_select(type) and validate_years(years) and validate_select(status)
 
-def validate_comment(comm: str):
-    print("tipo:" ,type(comm))
-    return len(comm.strip())>=5
+def validate_comment(comm: str):  
+    return 5<=len(comm.strip())<300
 
 #print("nombre:", validate_name("  a ")== False)
 #print("email:", validate_email("ignacia@galaz@alvarado.com")==False)

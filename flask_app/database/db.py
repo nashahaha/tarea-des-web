@@ -145,5 +145,4 @@ def count_dev_data():
 	cursor.execute("SELECT COUNT(*) AS total_rows FROM dispositivo;")
 	devices, = cursor.fetchone()
 	return devices
-
-print(count_dev_data())
+	

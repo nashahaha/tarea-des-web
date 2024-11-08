@@ -38,11 +38,11 @@ const validarImg = (files) => {
     let lengthValid = 1 <= files.length && files.length <= 3;
   
     // validación del tipo de archivo
+    const allowedTypes = ["image/jpg", "image/png", "image/jpeg", "image/gif"];
     let typeValid = true;
   
     for (const file of files) {
-      let fileFamily = file.type.split("/")[0];
-      typeValid &&= fileFamily == "image";
+        typeValid &&= allowedTypes.includes(file.type);
     }
 
     return lengthValid && typeValid;
@@ -189,7 +189,7 @@ const validarForm = () => {
     let picsInput = document.querySelectorAll('.device-pics');
     picsInput.forEach(element => {
         if (!validarImg(element.files)){
-            mostrarError(element, element.id, "Ingrese de 1 a 3 fotos del dispositivo");
+            mostrarError(element, element.id, "Ingrese de 1 a 3 fotos del dispositivo en formato jpg, png, jpeg o gif");
             isFormValid = false;
         } else {
             limpiarError(element, element.id);
