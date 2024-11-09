@@ -24,7 +24,7 @@ const validarDisp=(dispositivo) =>
 
 //VALIDADOR DESCRIPCIÓN
 const validarDesc=(descripcion) =>
-    descripcion.length<500
+    descripcion.length<300
 
 //AÑOS DE USO
 const validarAnnos=(annos) =>

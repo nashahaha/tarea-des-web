@@ -17,7 +17,7 @@ def validate_device_name(device):
     return device is not None and len(device)>=3 and len(device)<=80
 
 def validate_description(description):
-    return len(description)<=500
+    return len(description.strip())<300
 
 def validate_years(years):
     years = years.strip()
