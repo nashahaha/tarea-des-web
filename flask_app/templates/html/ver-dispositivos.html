@@ -1,0 +1,58 @@
+{% extends 'base.html' %} {% block title %} Ver dispositivos {% endblock %} {%
+block css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/ver-dispositivos.css') }}"
+/>
+{% endblock %} {% block content %}
+<!--DEVICES TABLE-->
+<table>
+  <thead>
+    <tr>
+      <td>Tipo</td>
+      <td>Nombre dispositivo</td>
+      <td>Estado</td>
+      <td>Comuna</td>
+      <td>Fotos</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% if data %} {% for device in data %}
+    <tr
+      data-device-id="{{device.device_id}}"
+      class="clickable-row"
+      onclick="goToInfoDevice(this)"
+      style="cursor: pointer"
+    >
+      <td>{{ device.tipo }}</td>
+      <td>{{ device.dispositivo }}</td>
+      <td>{{ device.estado }}</td>
+      <td>{{ device.comuna }}</td>
+      <td>
+        <img class="imgs" src="{{device.pic_path}}" alt="placeholder image" />
+      </td>
+    </tr>
+    {% endfor %} {% endif %}
+  </tbody>
+</table>
+
+<div class="pagination-cont">
+  <ul class="pagination" id="pagination">
+    {% if page!=1 %}
+    <li>
+      <a href="{{ url_for('verDispositivos', page=page-1) }}">&laquo</a>
+    </li>
+    {% endif %} {% for num in range(page-2, page+3) %} {% if num > 0 and num <=
+    maxPage %}
+    <li><a href="{{ url_for('verDispositivos', page=num) }}">{{ num }}</a></li>
+    {% endif %} {% endfor %} {% if page < maxPage %}
+    <li>
+      <a href="{{ url_for('verDispositivos', page=page+1) }}">&raquo</a>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+
+{% endblock content %} {% block javascript %}
+<script src="{{ url_for('static', filename='js/ver-dispositivos.js') }}"></script>
+{% endblock %}

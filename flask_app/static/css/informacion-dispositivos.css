@@ -1,0 +1,109 @@
+html {
+    font-family: Helvetica, sans-serif;
+  }
+
+.main-container {
+    width: 70%; 
+    margin: 0 auto; 
+}
+
+/* CAJA CON INFORMACION */
+.info-box {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px; /* Espacio interno */
+    padding-left: 100px;
+    padding-right: 100px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    margin-bottom: 20px; /* Espacio entre cajas */
+}
+
+.data-container {
+    display: flex; 
+    margin-bottom: 1px;
+    padding: 1px;
+    border-radius: 4px;
+}
+
+/*None side-to-side blocks*/
+.data-container-e { 
+    margin-bottom: 1px;
+    padding: 1px;
+    border-radius: 4px;
+    text-align: justify;
+}
+
+.data-label {
+    font-weight: bold;
+    width: 200px;
+}
+
+.data-value {
+    flex-grow: 1;
+    
+}
+
+h2 {
+    margin-top: 10px;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+}
+
+/*COMMENTS STUFF*/
+.comments-cont { /*seccion comentarios*/
+    margin-bottom: 20px;
+}
+
+input[type="text"]{ /*input del nombre*/
+    padding: 8px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+    color: #333;
+}
+
+#submit-comm-btn { /*botón agregar comentario*/
+    width: 200px;
+    padding: 10px;
+    background-color: var(--dark-green-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;       /* Asegura que el botón se comporte como un bloque */
+ 
+    margin-bottom: 10px;
+}
+
+.comm-container { /*caja de comentarios*/
+    background-color: white;
+    border-radius: 8px;
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.head-container { /*bloque nombre-fecha*/
+    display: flex; 
+    margin-bottom: 1px;
+    padding: 1px;
+    border-radius: 4px;
+}
+
+.comm-author {
+    font-weight: bold;
+}
+
+.comm-date {
+    font-style: italic;
+    padding-left: 20px;
+}
